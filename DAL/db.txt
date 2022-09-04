@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext -Connection "Server=localhost,3306;Initial Catalog=shoppyjoaodias;User ID=developer;Password=Matheus321*;Convert Zero DateTime=true;" -Provider Pomelo.EntityFrameworkCore.MySql -O MySqlDbContext -context MySqlDbContext -verbose -Force
