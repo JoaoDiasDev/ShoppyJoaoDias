@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ShopJoaoDias.Models
+namespace ShopJoaoDias.Areas.Admin.Models
 {
     public class AdminAuth : ActionFilterAttribute
     {
