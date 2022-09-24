@@ -6,7 +6,6 @@ namespace ShopJoaoDias.Extensions
     public class Encryption
     {
         public static string key = "Farm9)]{[$%&&))')";
-        [Obsolete("Obsolete")]
         public static string Encrypt(string text)
         {
             if (string.IsNullOrEmpty(key))
@@ -45,7 +44,7 @@ namespace ShopJoaoDias.Extensions
             }
         }
 
-        [Obsolete("Obsolete")]
+       
         public static string Decrypt(string encryptedText)
         {
             if (string.IsNullOrEmpty(key))
