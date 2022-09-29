@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.MySqlDbContext
+﻿namespace DAL.MySqlDbContext
 {
     public partial class Admin
     {

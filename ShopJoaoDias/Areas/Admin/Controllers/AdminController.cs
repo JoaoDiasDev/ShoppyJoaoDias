@@ -61,5 +61,47 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
                 return View(adminDO);
             }
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            try
+            {
+                var result = _adminBL.GetById(id);
+                ViewBag.password = Encryption.Decrypt(result.Password);
+                return View(result);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult Edit(int id, AdminDO adminDO)
+        {
+            try
+            {
+                adminDO.UpdatedAt = DateTime.Now;
+                adminDO.Password = Encryption.Encrypt(adminDO.Password);
+                var resultDO = _adminBL.Update(adminDO);
+
+                if (resultDO != null)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.error = "Something went wrong, please check it!";
+                    return View(adminDO);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.error = "Something went wrong, please check it!";
+                return View(adminDO);
+            }
+        }
     }
 }

@@ -107,7 +107,7 @@ namespace BL
 
         public AdminDO Update(AdminDO model)
         {
-            AdminDO result = new();
+            AdminDO result = model;
             Admin entity;
             try
             {

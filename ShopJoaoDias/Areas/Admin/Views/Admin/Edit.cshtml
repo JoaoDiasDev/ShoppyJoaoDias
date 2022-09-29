@@ -1,0 +1,51 @@
+﻿@model AdminDO
+
+@{
+}
+
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit Admin</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.Id" type="hidden"></spinput>
+                    <spinput asp-for="@Model.CreatedAt" type="hidden"></spinput>
+                    <spinput asp-for="@Model.Username" icon="user"></spinput>
+                    <spinput asp-for="@Model.Email" type="email" icon="email"></spinput>
+                    <spinput asp-for="@Model.Surname" icon="user"></spinput>
+                    <spinput asp-for="@Model.Name" icon="user"></spinput>
+                    <spinput asp-for="@Model.Password" type="password" icon="lock" asp-value="@ViewBag.password"></spinput>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label" asp-for="@Model.Confirmation"></label>
+                        <div class="col-sm-9">
+                            <div class="checkbox checkbox-success">
+                                @*@Html.CheckBox("Confirmation",false,Model.Confirmation)*@
+                                <input type="radio" asp-for="@Model.Confirmation" checked value="1" />
+                                <label asp-for="@Model.Confirmation">Is Active</label>
+                            </div>
+                            <div class="checkbox checkbox-success">
+                                @*@Html.CheckBox("Confirmation",false,Model.Confirmation)*@
+                                <input type="radio" asp-for="@Model.Confirmation" checked value="0" />
+                                <label asp-for="@Model.Confirmation">DeActive</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
