@@ -103,5 +103,42 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
                 return View(adminDO);
             }
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var result = _adminBL.GetById(id);
+                return View(result);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult Delete(int id, AdminDO adminDO)
+        {
+            var result = _adminBL.GetById(id);
+            try
+            {
+                bool value = _adminBL.Delete(result);
+                if (value)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.error = "Something went wrong please try it again!";
+                    return View(result);
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace SPHtmlHelper
                     type = aspFor.Metadata.DataTypeName != null ? aspFor.Metadata.DataTypeName : "text";
                 }
 
-                tagInput.AddCssClass(addclass == null ? "form-control" : "form-control" + addclass);
+                tagInput.AddCssClass(addclass == null ? "form-control" : "form-control " + addclass);
                 tagInput.Attributes.Add("placeholder", aspFor.Metadata.DisplayName);
                 tagInput.TagRenderMode = TagRenderMode.SelfClosing;
 

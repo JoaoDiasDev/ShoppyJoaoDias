@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=edge">*@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -22,7 +22,7 @@
         <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    @RenderSection("Head",required:false);
+    @RenderSection("Head",required:false)
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -263,12 +263,28 @@
                         <li>
                             <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Admins</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a asp-controller="Admin" >Admin List</a></li>
+                                <li><a asp-controller="Admin" aps-action="Index">Admin List</a></li>
                                 <li><a asp-controller="Admin" asp-action="Create">Create Admin</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Charts</span></a>
+                        <li>
+                            <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Banks</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a asp-controller="Bank" aps-action="Index">Bank List</a></li>
+                                <li><a asp-controller="Bank" asp-action="Create">Create Bank</a></li>
+                            </ul>
+                        </li>
+                           <li>
+                            <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Brands</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a asp-controller="Brand" aps-action="Index">Brand List</a></li>
+                                <li><a asp-controller="Brand" asp-action="Create">Create Brand</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                        <li>
+                            <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Brands</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="chart-flot.html">Flot</a></li>
                                 <li><a href="chart-morris.html">Morris</a></li>
@@ -404,7 +420,7 @@
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-               @RenderBody()
+                @RenderBody()
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
@@ -430,7 +446,6 @@
     <script src="~/admin/js/custom.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    @RenderSection("Scripts",required: false);
+    @RenderSection("Scripts",required: false)
 </body>
-
 </html>

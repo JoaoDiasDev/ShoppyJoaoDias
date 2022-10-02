@@ -1,0 +1,46 @@
+﻿@model BankDO
+
+@{
+    var uploadViewModel = new UploadViewModel
+    {
+        Folder = "./Upload",
+        MaxFiles = 1
+    };
+}
+
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create a new Bank</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.Name"></spinput>
+                    <spinput asp-for="@Model.Description"></spinput>
+                    <spinput asp-for="@Model.Installment"></spinput>
+                    <spinput asp-for="@Model.Order"></spinput>
+                    <spinput asp-for="@Model.Iban"></spinput>
+                    <spupload></spupload>
+                    <spinput asp-for="@Model.Logo" addclass="image" type="hidden"></spinput>
+
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+   <partial name="_singleUpload" model="uploadViewModel"></partial>
+}
