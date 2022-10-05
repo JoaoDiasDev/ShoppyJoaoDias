@@ -97,6 +97,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
             {
                 if (bankDO != null)
                 {
+                    bankDO.UpdatedAt = DateTime.Now;
                     var updateBank = _bankBL.Update(bankDO);
                     return RedirectToAction("Index");
                 }

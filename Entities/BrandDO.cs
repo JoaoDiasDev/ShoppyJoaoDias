@@ -29,7 +29,7 @@ namespace Entities
         public string? Title { get; set; }
         [Display(Name = "Description")]
         [DataType(DataType.Text)]
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
