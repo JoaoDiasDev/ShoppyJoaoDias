@@ -7,29 +7,28 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [AdminAuth]
-    public class ProvinceController : Controller
+    public class UnitController : Controller
     {
-        private IProvinceBL _provinceBL;
+        private IUnitBL _unitBL;
 
-        public ProvinceController(IServiceProvider serviceProvider)
+        public UnitController(IServiceProvider serviceProvider)
         {
-            _provinceBL = serviceProvider.GetRequiredService<IProvinceBL>();
+            _unitBL = serviceProvider.GetRequiredService<IUnitBL>();
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var provinceList = _provinceBL.GetList();
-            return View(provinceList);
+            var unitList = _unitBL.GetList();
+            return View(unitList);
         }
-
         [HttpGet]
         public IActionResult Create()
         {
             try
             {
-                var provinceDO = new ProvinceDO();
-                return View(provinceDO);
+                var unitDO = new UnitDO();
+                return View(unitDO);
             }
             catch (Exception)
             {
@@ -38,26 +37,26 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Create(ProvinceDO provinceDO)
+        public IActionResult Create(UnitDO unitDO)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var addProvince = _provinceBL.Add(provinceDO);
+                    var addUnit = _unitBL.Add(unitDO);
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.error = "Something went wrong please try it again!";
-                    return View(provinceDO);
+                    return View(unitDO);
                 }
 
             }
             catch (Exception)
             {
                 ViewBag.error = "Something went wrong please try it again!";
-                return View(provinceDO);
+                return View(unitDO);
             }
         }
 
@@ -66,7 +65,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         {
             try
             {
-                var result = _provinceBL.GetById(id);
+                var result = _unitBL.GetById(id);
                 return View(result);
             }
             catch (Exception)
@@ -76,25 +75,25 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Edit(int id, ProvinceDO provinceDO)
+        public IActionResult Edit(int id, UnitDO unitDO)
         {
             try
             {
-                if (provinceDO != null)
+                if (unitDO != null)
                 {
-                    var updateProvince = _provinceBL.Update(provinceDO);
+                    var updateUnit = _unitBL.Update(unitDO);
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.error = "Something went wrong please try it again!";
-                    return View(provinceDO);
+                    return View(unitDO);
                 }
             }
             catch (Exception)
             {
                 ViewBag.error = "Something went wrong please try it again!";
-                return View(provinceDO);
+                return View(unitDO);
             }
         }
 
@@ -103,7 +102,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         {
             try
             {
-                var result = _provinceBL.GetById(id);
+                var result = _unitBL.GetById(id);
                 return View(result);
             }
             catch (Exception)
@@ -113,12 +112,12 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Delete(int id, ProvinceDO provinceDO)
+        public IActionResult Delete(int id, UnitDO unitDO)
         {
-            var result = _provinceBL.GetById(id);
+            var result = _unitBL.GetById(id);
             try
             {
-                bool value = _provinceBL.Delete(result);
+                bool value = _unitBL.Delete(result);
 
                 if (value)
                 {

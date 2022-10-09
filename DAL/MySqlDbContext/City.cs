@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.MySqlDbContext
+﻿namespace DAL.MySqlDbContext
 {
     public partial class City
     {
@@ -14,7 +11,7 @@ namespace DAL.MySqlDbContext
         public int Id { get; set; }
         public int Provinceid { get; set; }
         public string Name { get; set; } = null!;
-        public string Slug { get; set; } = null!;
+        public string Slug { get; set; }
         public int? Order { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

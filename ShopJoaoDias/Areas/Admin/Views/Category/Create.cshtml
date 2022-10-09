@@ -1,0 +1,29 @@
+﻿@model CategoryViewModel
+
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create a new Category</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.CategoryDO.Name"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Description"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Pagetitle"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Metadescription"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Slug"></spinput>
+                    <spselect asp-items="@(new SelectList(Model.CategoryDOList, "Id", "Name"))"
+                              asp-for="@Model.CategoryDO.Parentid" asp-text="Select Parent Category"></spselect>
+                    <spbutton asp-value="Create"></spbutton>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

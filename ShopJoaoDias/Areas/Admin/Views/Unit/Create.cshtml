@@ -1,0 +1,28 @@
+﻿@model UnitDO
+
+@{
+
+}
+
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create a new Unit</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.Name"></spinput>
+                    <spinput asp-for="@Model.Shortname"></spinput>
+                    <spbutton asp-value="Create"></spbutton>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
