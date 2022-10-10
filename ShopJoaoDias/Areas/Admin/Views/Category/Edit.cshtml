@@ -1,0 +1,40 @@
+﻿@model CategoryViewModel
+
+@{
+    var status = new List<SelectListItem>
+    {
+        new SelectListItem{Text = "", Value = "1"}
+    };
+}
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit @Model.CategoryDO.Name Category</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.CategoryDO.Id" type="hidden"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.CreatedAt" type="hidden"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Name"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Description"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Pagetitle"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Metadescription"></spinput>
+                    <spinput asp-for="@Model.CategoryDO.Slug"></spinput>
+                    <spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Status"></spcheckbox>
+                    @*<spcheckbox asp-items="status" asp-for="@Model.CategoryDO.IncludeInTopMenu"></spcheckbox>*@
+                    @*<spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Deleted"></spcheckbox>*@
+                    <spselect asp-items="@(new SelectList(Model.CategoryDOList, "Id", "Name"))"
+                              asp-for="@Model.CategoryDO.Parentid" asp-text="Select Parent Category"></spselect>
+                    <spbutton asp-value="Edit"></spbutton>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

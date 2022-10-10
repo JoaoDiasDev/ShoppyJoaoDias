@@ -41,7 +41,7 @@
                                             <td>@item.Name</td>
                                             <td>@(item.Status.ToString() == "1" ? "Active" : "Inactive")</td>
                                             <td>@item.Slug</td>
-                                            <td>@(item.Includeintopmenu.ToString() == "1" ? "Active" : "Inactive")</td>
+                                            <td>@(item.IncludeInTopMenu.ToString() == "1" ? "Active" : "Inactive")</td>
                                             <td>@item.UpdatedAt.ToShortDateString()</td>
                                             <td>
                                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Edit</a>

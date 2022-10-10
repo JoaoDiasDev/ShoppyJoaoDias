@@ -32,7 +32,7 @@ namespace SPHtmlHelper
             tagSelect.AddCssClass(addclass == null ? "form-control" : "form-control" + addclass);
             tagSelect.Attributes.Add("id", aspFor.Name.Replace(".", "_"));
             tagSelect.Attributes.Add("name", aspFor.Name);
-            if (!(string.IsNullOrEmpty(vModel)))
+            if (vModel != "" && vModel != null)
             {
                 tagSelect.Attributes.Add("v-model", vModel);
             }
@@ -48,7 +48,7 @@ namespace SPHtmlHelper
                     foreach (var item in validatorMetadata)
                     {
                         RequiredAttribute m = (RequiredAttribute)item;
-                        requiredErrorMessage = m.ErrorMessage ?? "";
+                        requiredErrorMessage = m.ErrorMessage;
                     }
                     tagSelect.Attributes.Add("data-val-required", requiredErrorMessage);
                 }
@@ -58,9 +58,9 @@ namespace SPHtmlHelper
                 }
             }
 
-            if (!(string.IsNullOrEmpty(defaultText)))
+            if (defaultText != null && defaultText != "")
             {
-                tagSelect.InnerHtml.Append("<option value=\"" + defaultValue + "\">" + defaultText + "</option>");
+                tagSelect.InnerHtml.AppendHtml("<option value=\"" + defaultValue + "\">" + defaultText + "</option>");
             }
 
             if (listItems != null && listItems.ToList().Count > 0)
@@ -70,7 +70,7 @@ namespace SPHtmlHelper
                 {
                     if (value != null && item.Value == value.ToString())
                     {
-                        options.Append("<option value='" + item.Value + "' selected = 'selected'>" + item.Text + "</option>");
+                        options.Append("<option value='" + item.Value + "' selected= 'selected'>" + item.Text + "</option>");
                     }
                     else
                     {

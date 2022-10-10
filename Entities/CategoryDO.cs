@@ -35,7 +35,9 @@ namespace Entities
         [Display(Name = "Display Order")]
         [DataType(DataType.Text)]
         public int? Displayorder { get; set; }
-        public int? Includeintopmenu { get; set; }
+        [Display(Name = "Include In Top Menu")]
+        public int? IncludeInTopMenu { get; set; }
+        [Display(Name = "Deleted")]
         public int? Deleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
