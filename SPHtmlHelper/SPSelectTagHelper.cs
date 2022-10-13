@@ -60,7 +60,7 @@ namespace SPHtmlHelper
 
             if (defaultText != null && defaultText != "")
             {
-                tagSelect.InnerHtml.AppendHtml("<option value=\"" + defaultValue + "\">" + defaultText + "</option>");
+                tagSelect.InnerHtml.AppendHtml("<option value=''" + defaultValue + " >" + defaultText + "</option>");
             }
 
             if (listItems != null && listItems.ToList().Count > 0)
@@ -70,14 +70,14 @@ namespace SPHtmlHelper
                 {
                     if (value != null && item.Value == value.ToString())
                     {
-                        options.Append("<option value='" + item.Value + "' selected= 'selected'>" + item.Text + "</option>");
+                        options.Append("<option value='" + item.Value + "' selected='selected'>" + item.Text + "</option>");
                     }
                     else
                     {
                         options.Append("<option value='" + item.Value + "'>" + item.Text + "</option>");
                     }
-                    tagSelect.InnerHtml.AppendHtml(options.ToString());
                 }
+                tagSelect.InnerHtml.AppendHtml(options.ToString());
             }
 
             var tagSpan = new TagBuilder("span");

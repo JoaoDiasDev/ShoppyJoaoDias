@@ -22,6 +22,8 @@ namespace SPHtmlHelper
         public string secondclass { get; set; } = "col-sm-6";
         [HtmlAttributeName("icon")]
         public string icon { get; set; }
+        [HtmlAttributeName("v-model")]
+        public string vModel { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -32,6 +34,11 @@ namespace SPHtmlHelper
             tagInput.Attributes.Add("name", aspFor.Name);
             tagInput.Attributes.Add("type", type);
             tagInput.Attributes.Add("value", aspValue);
+
+            if (vModel != null)
+            {
+                tagInput.Attributes.Add("v-model", vModel);
+            }
 
             if (type == "hidden")
             {

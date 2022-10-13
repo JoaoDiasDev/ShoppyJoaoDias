@@ -42,13 +42,14 @@ namespace SPHtmlHelper
             }
 
             addclass = addclass == null ? "list-unstyled mb-0" : addclass;
-            var template = $@"<div class='form-group row'
+            var template = $@"<div class='form-group row'>
                               <div class='control-label col-md-3'>
                               {aspFor.Metadata.DisplayName}
                               </div>
                               <div class='col-md-9'>
                               {listStr}
-                              </div></div>";
+                              </div>
+                              </div>";
             output.TagName = "";
             output.Content.SetHtmlContent(template);
 

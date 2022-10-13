@@ -28,8 +28,8 @@
                     <spinput asp-for="@Model.CategoryDO.Metadescription"></spinput>
                     <spinput asp-for="@Model.CategoryDO.Slug"></spinput>
                     <spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Status"></spcheckbox>
-                    @*<spcheckbox asp-items="status" asp-for="@Model.CategoryDO.IncludeInTopMenu"></spcheckbox>*@
-                    @*<spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Deleted"></spcheckbox>*@
+                    <spcheckbox asp-items="status" asp-for="@Model.CategoryDO.IncludeInTopMenu"></spcheckbox>
+                    <spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Deleted"></spcheckbox>
                     <spselect asp-items="@(new SelectList(Model.CategoryDOList, "Id", "Name"))"
                               asp-for="@Model.CategoryDO.Parentid" asp-text="Select Parent Category"></spselect>
                     <spbutton asp-value="Edit"></spbutton>

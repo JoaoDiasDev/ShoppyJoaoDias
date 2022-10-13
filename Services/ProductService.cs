@@ -77,8 +77,8 @@ namespace Services
             using (var context = new DatabaseContext())
             {
                 return filter == null
-                    ? context.Set<Product>().ToList()
-                    : context.Set<Product>().Where(filter).ToList();
+                    ? context.Set<Product>().Include(x => x.Category).Include(x => x.Brand).ToList()
+                    : context.Set<Product>().Include(x => x.Category).Include(x => x.Brand).Where(filter).ToList();
             }
         }
     }
