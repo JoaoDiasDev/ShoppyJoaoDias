@@ -2,7 +2,7 @@
 {
     public class UploadViewModel
     {
-        public string Folder { get; set; } = "";
+        public string ActionResult { get; set; } = "";
         public int MaxFiles { get; set; }
     }
 }

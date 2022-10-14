@@ -7,7 +7,7 @@
     Dropzone.autoDiscover = false;
 
     $("div#dpz-single-file").dropzone({
-        url: "@(Model.Folder)",
+        url: "@(Model.ActionResult)",
         autoProcessQueue: true,
         paramName: "file",
         uploadMultiple: false,

@@ -23,6 +23,11 @@ namespace ShopJoaoDias.Helpers
                     var folderPath = folder == null
                         ? Path.Combine(_environment.WebRootPath + "/upload/")
                         : Path.Combine(_environment.WebRootPath + "/upload/" + folder + "/");
+                    var directory = Directory.CreateDirectory(folderPath);
+                    if (!directory.Exists)
+                    {
+                        directory.Create();
+                    }
                     var newFileName = myUniqueFileName + fileExtension;
                     fileName = Path.Combine(folderPath + newFileName);
                     await using (var fileStream = File.Create(fileName))
