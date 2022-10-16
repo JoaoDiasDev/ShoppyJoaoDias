@@ -1,0 +1,54 @@
+﻿@model ProductViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-body">
+            <h4 class="card-title">Upload multiply images for @Model.ProductDO.Name</h4>
+            <div class="col-lg-12" id="app">
+                <div class="row"></div>
+                <div class="col" v-for="image in images" style="padding:20px;margin:20px"></div>
+                <a v-bind:href="image.address" target="_blank" class="img-rounded">
+                    <img v-bind:src="image.address" style="max-width:100px;max-height:100px" class="img-thumbnail" />
+                </a>
+                <a v-on:click="delete(image)" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <h2>Upload Images</h2>
+        <spupload></spupload>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/vue/vue.js"></script>
+    <script src="~/js/axios/axios.min.js"></script>
+    <link href="~/admin/css/lib/dropzone/dropzone.css" rel="stylesheet" />
+    <script src="~/admin/js/lib/dropzone/dropzone.js"></script>
+
+    <script type="text/javascript">
+        var vi = new Vue({
+            el: "#app",
+            data: {
+                images:@Html.Raw(Json.Serialize(Model.ProductImageList))
+            },
+        })
+        Dropzone.autoDiscover = false;
+
+        $("div#dpz-single-file").dropzone({
+            url: "../MultipleUpload/@(Model.ProductDO.Id)",
+            autoProcessQueue: true,
+            paramName: "file",
+            uploadMultiple: false,
+            dictDefaultMessage: "",
+            addRemoveLinks: true,
+            maxFiles: 5,
+            init: function () {
+                this.on("success", function (file,resp) {
+                    this.removeFile(file);
+                    vi.images.push(resp);
+                });
+            }
+        });
+    </script>
+}

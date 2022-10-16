@@ -30,6 +30,9 @@
                 console.log(resp);
                 if (resp && resp != "") {
                     $('.image').val(resp);
+                    if (document.getElementById("changeImage")){
+                        $('#changeImage').attr('srs',resp);
+                    }
                 }
             });
         }
