@@ -92,7 +92,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
                     }
 
                     var addProduct = _productBL.Add(productDO);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Image", new { id = addProduct.Id });
                 }
                 else
                 {
@@ -303,7 +303,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
                 var fileName = await uploadHelpers.Upload(file, "products/" + id);
                 var productImage = new ProductImageDO
                 {
-                    Address = "/upload/products" + id + "/" + fileName,
+                    Address = "/upload/products/" + id + "/" + fileName,
                     Productid = id
                 };
 
@@ -314,6 +314,25 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
             {
                 return Ok();
             }
+        }
+
+        public IActionResult ImageDelete(int id = 0)
+        {
+            if (id > 0)
+            {
+                var productImageDO = _productImageBL.GetById(id);
+                bool result = _productImageBL.Delete(productImageDO);
+                if (result)
+                {
+                    var imagePath = Path.Combine(_hosting.WebRootPath + productImageDO.Address);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+            }
+
+            return Ok();
         }
     }
 }
