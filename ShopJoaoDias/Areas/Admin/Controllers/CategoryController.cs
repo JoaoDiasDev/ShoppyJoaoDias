@@ -3,6 +3,7 @@ using Interfaces.BL;
 using Microsoft.AspNetCore.Mvc;
 using ShopJoaoDias.Areas.Admin.Models;
 using ShopJoaoDias.Extensions;
+using ShopJoaoDias.Helpers;
 
 namespace ShopJoaoDias.Areas.Admin.Controllers
 {
@@ -11,10 +12,12 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private ICategoryBL _categoryBL;
+        private IWebHostEnvironment _hosting;
 
         public CategoryController(IServiceProvider serviceProvider)
         {
             _categoryBL = serviceProvider.GetRequiredService<ICategoryBL>();
+            _hosting = serviceProvider.GetRequiredService<IWebHostEnvironment>();
         }
 
         [HttpGet]
@@ -192,6 +195,20 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
             catch (Exception)
             {
                 return RedirectToAction("Index");
+            }
+        }
+
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            if (file.Length > 0)
+            {
+                var uploadHelper = new UploadHelper(_hosting);
+                string fileName = await uploadHelper.Upload(file, "categories");
+                return Json(fileName);
+            }
+            else
+            {
+                return Ok();
             }
         }
     }

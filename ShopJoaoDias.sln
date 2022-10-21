@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{1E85DE89-889E-4614-B6BC-98962D7C8075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPHtmlHelper", "SPHtmlHelper\SPHtmlHelper.csproj", "{C9702A4A-6F5E-4946-8DBA-EBC19BD38CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPHtmlHelper", "SPHtmlHelper\SPHtmlHelper.csproj", "{C9702A4A-6F5E-4946-8DBA-EBC19BD38CF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

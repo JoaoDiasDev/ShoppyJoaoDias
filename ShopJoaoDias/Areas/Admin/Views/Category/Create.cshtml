@@ -1,5 +1,13 @@
 ﻿@model CategoryViewModel
 
+@{
+    var uploadViewModel = new UploadViewModel
+            {
+                ActionResult = "./Upload",
+                MaxFiles = 1
+            };
+}
+
 <div class="row">
     @if (ViewBag.error != null)
     {
@@ -21,9 +29,15 @@
                     <spinput asp-for="@Model.CategoryDO.Slug"></spinput>
                     <spselect asp-items="@(new SelectList(Model.CategoryDOList, "Id", "Name"))"
                               asp-for="@Model.CategoryDO.Parentid" asp-text="Select Parent Category"></spselect>
+                    <spupload></spupload>
+                    <spinput type="hidden" asp-for="@Model.CategoryDO.Image" addclass="image"></spinput>
                     <spbutton asp-value="Create"></spbutton>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_singleUpload" model="uploadViewModel"></partial>
+}

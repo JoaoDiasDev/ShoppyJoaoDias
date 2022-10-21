@@ -22,14 +22,7 @@
     <link rel="stylesheet" href="~/css/app.css">
     @RenderSection("Head",required:false);
 </head>
-<body class="config">
-    <div class="preloader is-active">
-        <div class="preloader__wrap">
-
-            <img class="preloader__img" src="~/images/preloader.png" alt="">
-        </div>
-    </div>
-
+<body>
     <!--====== Main App ======-->
     <div id="app">
 
@@ -1604,10 +1597,7 @@
             <!--====== End - Nav 2 ======-->
         </header>
         <!--====== End - Main Header ======-->
-        <!--====== App Content ======-->
-        <div class="app-content">
-
-        </div>
+        <!--====== App Content ======--
         @RenderBody()
         <!--====== End - App Content ======-->
         <!--====== Main Footer ======-->
@@ -1831,6 +1821,6 @@
             </div>
         </div>
     </noscript>
-    @RenderSection("Scripts",required:false);
+    @RenderSection("Scripts",required:false)
 </body>
 </html>

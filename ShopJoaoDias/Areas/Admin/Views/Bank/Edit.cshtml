@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Editing @Model.Name Bank</h4>
-                <form class="form-horizontal p-t-20" method="post" >
+                <form class="form-horizontal p-t-20" method="post">
                     <spinput asp-for="@Model.Id" type="hidden"></spinput>
                     <spinput asp-for="@Model.CreatedAt" type="hidden"></spinput>
                     <spinput asp-for="@Model.Name"></spinput>
@@ -36,6 +36,8 @@
                             <button type="submit" class="btn btn-info waves-effect waves-light">Edit</button>
                         </div>
                     </div>
+
+
                 </form>
             </div>
         </div>

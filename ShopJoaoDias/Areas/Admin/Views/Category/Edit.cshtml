@@ -5,6 +5,13 @@
     {
         new SelectListItem{Text = "", Value = "1"}
     };
+
+    var uploadViewModel = new UploadViewModel
+            {
+                ActionResult = "../upload",
+                MaxFiles = 1
+            };
+
 }
 <div class="row">
     @if (ViewBag.error != null)
@@ -32,9 +39,15 @@
                     <spcheckbox asp-items="status" asp-for="@Model.CategoryDO.Deleted"></spcheckbox>
                     <spselect asp-items="@(new SelectList(Model.CategoryDOList, "Id", "Name"))"
                               asp-for="@Model.CategoryDO.Parentid" asp-text="Select Parent Category"></spselect>
+                    <spupload></spupload>
+                    <spinput type="hidden" asp-for="@Model.CategoryDO.Image" addclass="image"></spinput>
                     <spbutton asp-value="Edit"></spbutton>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_singleUpload" model="uploadViewModel"></partial>
+}

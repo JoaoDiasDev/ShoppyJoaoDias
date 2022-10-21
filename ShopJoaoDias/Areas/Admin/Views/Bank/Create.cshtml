@@ -2,12 +2,11 @@
 
 @{
     var uploadViewModel = new UploadViewModel
-    {
-        ActionResult = "./Upload",
-        MaxFiles = 1
-    };
+            {
+                ActionResult = "./Upload",
+                MaxFiles = 1
+            };
 }
-
 <div class="row">
     @if (ViewBag.error != null)
     {
@@ -42,5 +41,5 @@
 </div>
 
 @section Scripts {
-   <partial name="_singleUpload" model="uploadViewModel"></partial>
+    <partial name="_singleUpload" model="uploadViewModel"></partial>
 }

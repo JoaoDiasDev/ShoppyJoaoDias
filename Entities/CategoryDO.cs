@@ -41,7 +41,9 @@ namespace Entities
         public int? Deleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        [Display(Name = "Home Category")]
         public int? Homecategory { get; set; }
+        [Display(Name = "Image")]
         public string? Image { get; set; }
 
         public virtual List<ProductDO> Products { get; set; }

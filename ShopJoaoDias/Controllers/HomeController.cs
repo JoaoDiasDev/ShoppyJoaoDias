@@ -1,5 +1,6 @@
 ﻿using Interfaces.BL;
 using Microsoft.AspNetCore.Mvc;
+using ShopJoaoDias.Models;
 
 namespace ShopJoaoDias.Controllers
 {
@@ -18,7 +19,18 @@ namespace ShopJoaoDias.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var categories = _categoryBL.GetList();
+            var products = _productBL.GetList();
+            var brands = _brandBL.GetList();
+
+            var model = new HomeViewModel
+            {
+                BrandList = brands,
+                ProductList = products,
+                CategoryList = categories
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()
