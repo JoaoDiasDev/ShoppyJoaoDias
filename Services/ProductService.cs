@@ -81,5 +81,15 @@ namespace Services
                     : context.Set<Product>().Include(x => x.Category).Include(x => x.Brand).Where(filter).ToList();
             }
         }
+
+        public List<Product> GetProductPerPage(int categoryId, int page, bool isParentCategory)
+        {
+            using (var context = new DatabaseContext())
+            {
+                return isParentCategory
+                    ? context.Products.AsQueryable().Where(x => x.Category.Parentid == categoryId).ToList()
+                    : context.Products.AsQueryable().Where(x => x.Categoryid == categoryId).ToList();
+            }
+        }
     }
 }

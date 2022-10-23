@@ -51,9 +51,20 @@ namespace BL
             }
         }
 
-        public CategoryDO Get(Expression<Func<CategoryDO, bool>> predicate = null)
+        public CategoryDO Get(Expression<Func<Category, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            var result = new CategoryDO();
+            try
+            {
+                var category = _categoryService.Get(predicate);
+                result = _mapper.Map<Category, CategoryDO>(category);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+
         }
 
         public CategoryDO GetById(int id)

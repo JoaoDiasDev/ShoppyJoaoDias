@@ -56,6 +56,23 @@ namespace BL
             throw new NotImplementedException();
         }
 
+        public List<ProductDO> GetProductPerPage(int categoryId, int page, bool isParentCategory)
+        {
+            var result = new List<ProductDO>();
+            try
+            {
+                var products = _productService.GetProductPerPage(categoryId, page, isParentCategory);
+                result = _mapper.Map<List<Product>, List<ProductDO>>(products);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
+
         public ProductDO GetById(int id)
         {
             ProductDO result;
