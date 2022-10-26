@@ -143,100 +143,68 @@
                 </div>
             </div>
         </div>
-        <div class="u-s-m-b-30">
-            <div class="shop-w">
-                <div class="shop-w__intro-wrap">
-                    <h1 class="shop-w__h">PRICE</h1>
+        <form class="shop-w__form-p">
+            <div class="u-s-m-b-30">
+                <div class="shop-w">
+                    <div class="shop-w__intro-wrap">
+                        <h1 class="shop-w__h">PRICE</h1>
 
-                    <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
-                </div>
-                <div class="shop-w__wrap collapse show" id="s-price">
-                    <form class="shop-w__form-p">
-                        <div class="shop-w__form-p-wrap">
-                            <div>
+                        <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
+                    </div>
+                    <div class="shop-w__wrap collapse show" id="s-price">
+                            <div class="shop-w__form-p-wrap">
+                                <div>
 
-                                <label for="price-min"></label>
+                                    <label for="price-min"></label>
 
-                                <input class="input-text input-text--primary-style" type="text" id="price-min" name="minPrice" placeholder="Min">
+                                    <input class="input-text input-text--primary-style" type="text" id="price-min" name="minPrice" placeholder="Min">
+                                </div>
+                                <div>
+
+                                    <label for="price-max"></label>
+
+                                    <input class="input-text input-text--primary-style" type="text" id="price-max" name="maxPrice" placeholder="Max">
+                                </div>
+                                <div>
+
+                                    <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button>
+                                </div>
                             </div>
-                            <div>
-
-                                <label for="price-max"></label>
-
-                                <input class="input-text input-text--primary-style" type="text" id="price-max" name="maxPrice" placeholder="Max">
-                            </div>
-                            <div>
-
-                                <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="u-s-m-b-30">
-            <div class="shop-w">
-                <div class="shop-w__intro-wrap">
-                    <h1 class="shop-w__h">MANUFACTURER</h1>
-
-                    <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
-                </div>
-                <div class="shop-w__wrap collapse show" id="s-manufacturer">
-                    <ul class="shop-w__list-2">
-                        <li>
-                            <div class="list__content">
-
-                                <input type="checkbox" checked>
-
-                                <span>Calvin Klein</span>
-                            </div>
-
-                            <span class="shop-w__total-text">(23)</span>
-                        </li>
-                        <li>
-                            <div class="list__content">
-
-                                <input type="checkbox">
-
-                                <span>Diesel</span>
-                            </div>
-
-                            <span class="shop-w__total-text">(2)</span>
-                        </li>
-                        <li>
-                            <div class="list__content">
-
-                                <input type="checkbox">
-
-                                <span>Polo</span>
-                            </div>
-
-                            <span class="shop-w__total-text">(2)</span>
-                        </li>
-                        <li>
-                            <div class="list__content">
-
-                                <input type="checkbox">
-
-                                <span>Tommy Hilfiger</span>
-                            </div>
-
-                            <span class="shop-w__total-text">(9)</span>
-                        </li>
-                        <li>
-                            <div class="list__content">
-
-                                <input type="checkbox">
-
-                                <span>Ndoge</span>
-                            </div>
-
-                            <span class="shop-w__total-text">(3)</span>
-                        </li>
-                    </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="u-s-m-b-30">
+                <div class="shop-w">
+                    <div class="shop-w__intro-wrap">
+                        <h1 class="shop-w__h">MANUFACTURER</h1>
+
+                        <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                    </div>
+                    <div class="shop-w__wrap collapse show" id="s-manufacturer">
+                        <ul class="shop-w__list-2">
+                            @foreach (var brand in Model.CategoryProduct.BrandList)
+                            {
+                                <li>
+                                    <div class="list__content">
+
+                                        <input type="checkbox" name="brandId[]" value="@brand.Id">
+
+                                        <span>@brand.Name</span>
+                                    </div>
+
+                                    <span class="shop-w__total-text">(23)</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="u-s-m-b-10">
+                <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit">Filter</button>
+            </div>
+        </form>
+
         <div class="u-s-m-b-30">
             <div class="shop-w">
                 <div class="shop-w__intro-wrap">

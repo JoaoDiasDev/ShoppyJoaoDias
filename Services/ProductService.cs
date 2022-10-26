@@ -68,7 +68,14 @@ namespace Services
         {
             using (var context = new DatabaseContext())
             {
-                return context.Set<Product>().FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
+                return context.Set<Product>()
+                    .Include(iBrand => iBrand.Brand)
+                    .Include(iCategory => iCategory.Category)
+                    .Include(iBaskets => iBaskets.Baskets)
+                    .Include(iOrderitems => iOrderitems.Orderitems)
+                    .Include(iProductImages => iProductImages.ProductImages)
+                    .Include(iWishlists => iWishlists.Wishlists)
+                    .FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
             }
         }
 

@@ -39,7 +39,7 @@
                                             </div>
                                             <div class="category-o__info">
 
-                                                <a class="category-o__shop-now btn--e-white-brand" href="shop-side-version-2.html">@item.Name</a>
+                                                <a class="category-o__shop-now btn--e-white-brand" href="/Category/@item.Slug">@item.Name</a>
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
 
                                                             <span class="product-o__name">
 
-                                                                <a href="/Product/@(product.Easyurl)">
+                                                                <a href="/@product.Id/@(product.Easyurl)">
                                                                     @(product.Name)
                                                                 </a>
                                                             </span>
@@ -141,8 +141,9 @@
                                                             <span class="product-o__price">
                                                                 @if (product.Discount != null && (product.Discountlastdate != null && product.Discountlastdate > DateTime.Now))
                                                                 {
+                                                                    <span class="product-o__discount">
                                                                     @Html.Raw("$" + product.Discount)
-                                                                    <span class="product-o__discount">$160.00</span>
+                                                                    </span>
                                                                 }
                                                                 else
                                                                 {

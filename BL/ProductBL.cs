@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public ProductDO Get(Expression<Func<ProductDO, bool>> predicate = null)
+        public ProductDO Get(Expression<Func<Product, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            ProductDO result;
+            try
+            {
+                Product product = _productService.Get(predicate);
+                result = _mapper.Map<Product, ProductDO>(product);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public List<ProductDO> GetProductPerPage(int categoryId, int page, bool isParentCategory)
@@ -78,8 +88,8 @@ namespace BL
             ProductDO result;
             try
             {
-                Product admin = _productService.GetById(id);
-                result = _mapper.Map<Product, ProductDO>(admin);
+                Product product = _productService.GetById(id);
+                result = _mapper.Map<Product, ProductDO>(product);
             }
             catch (Exception)
             {
