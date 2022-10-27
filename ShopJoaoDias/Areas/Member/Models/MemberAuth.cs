@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ShopJoaoDias.Areas.Admin.Models
+namespace ShopJoaoDias.Areas.Member.Models
 {
-    public class AdminAuth : ActionFilterAttribute
+    public class MemberAuth : ActionFilterAttribute
     {
         public override object TypeId => base.TypeId;
 
@@ -42,21 +42,21 @@ namespace ShopJoaoDias.Areas.Admin.Models
                 {
                     try
                     {
-                        username = context.HttpContext.Request.Cookies["username"];
-                        id = context.HttpContext.Request.Cookies["userid"];
+                        username = context.HttpContext.Request.Cookies["shoppyUsername"];
+                        id = context.HttpContext.Request.Cookies["shoppyUserId"];
                         if (id == null || username == null)
                         {
-                            context.HttpContext.Response.Redirect("/Admin/Login");
+                            context.HttpContext.Response.Redirect("/Member/User");
                         }
                     }
                     catch (Exception)
                     {
-                        context.HttpContext.Response.Redirect("/Admin/Login");
+                        context.HttpContext.Response.Redirect("/Member/User");
                     }
                 }
                 else
                 {
-                    context.HttpContext.Response.Redirect("/Admin/Login");
+                    context.HttpContext.Response.Redirect("/Member/User");
                 }
             }
             base.OnActionExecuting(context);

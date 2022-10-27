@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DAL.MySqlDbContext;
+using Entities;
 using System.Linq.Expressions;
 
 namespace Interfaces.BL
@@ -8,7 +9,7 @@ namespace Interfaces.BL
         UserDO Add(UserDO model);
         UserDO Update(UserDO model);
         UserDO GetById(int id);
-        UserDO Get(Expression<Func<UserDO, bool>> predicate = null);
+        UserDO Get(Expression<Func<User, bool>> predicate = null);
         List<UserDO> GetList(Expression<Func<UserDO, bool>> filter = null);
         bool Delete(UserDO model);
     }

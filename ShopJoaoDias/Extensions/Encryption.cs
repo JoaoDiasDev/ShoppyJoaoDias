@@ -44,7 +44,6 @@ namespace ShopJoaoDias.Extensions
             }
         }
 
-       
         public static string Decrypt(string encryptedText)
         {
             if (string.IsNullOrEmpty(key))

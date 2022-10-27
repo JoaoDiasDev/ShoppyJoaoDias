@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public UserDO Get(Expression<Func<UserDO, bool>> predicate = null)
+        public UserDO Get(Expression<Func<User, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            UserDO result;
+            try
+            {
+                User user = _userService.Get(predicate);
+                result = _mapper.Map<User, UserDO>(user);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public UserDO GetById(int id)

@@ -1,4 +1,6 @@
-﻿namespace Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entities
 {
     public partial class UserDO
     {
@@ -14,9 +16,29 @@
         }
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Please enter a name")]
+        [MaxLength(15, ErrorMessage = "max 15 characters for name")]
+        [MinLength(4, ErrorMessage = "min 4 characters for name")]
+        [Display(Name = "Name")]
+        [DataType(DataType.Text)]
         public string? Name { get; set; }
+        [Required(ErrorMessage = "Please enter a surname")]
+        [MaxLength(15, ErrorMessage = "max 15 characters for surname")]
+        [MinLength(4, ErrorMessage = "min 4 characters for surname")]
+        [Display(Name = "Surname")]
+        [DataType(DataType.Text)]
         public string? Surname { get; set; }
+        [Required(ErrorMessage = "Please enter a email")]
+        [MaxLength(55, ErrorMessage = "max 55 characters for email")]
+        [MinLength(4, ErrorMessage = "min 4 characters for email")]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = null!;
+        [Required(ErrorMessage = "Please enter a password")]
+        [MaxLength(15, ErrorMessage = "max 15 characters for password")]
+        [MinLength(4, ErrorMessage = "min 4 characters for password")]
+        [Display(Name = "Password")]
+        [DataType(DataType.Text)]
         public string Password { get; set; } = null!;
         public int? Maillist { get; set; }
         public DateOnly? Birthday { get; set; }
