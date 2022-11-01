@@ -19,7 +19,7 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var adminDO = new AdminDO();
-            return View();
+            return View(adminDO);
         }
 
         [HttpPost, ValidateAntiForgeryToken]

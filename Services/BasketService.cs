@@ -38,6 +38,25 @@ namespace Services
             }
         }
 
+        public bool DeleteAll(int userId)
+        {
+            try
+            {
+                using (DatabaseContext context = new DatabaseContext())
+                {
+                    var baskets = context.Baskets.Where(x => x.Userid == userId);
+                    context.Baskets.RemoveRange(baskets);
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         public void Update(Basket entity)
         {
             using (var context = new DatabaseContext())
@@ -73,8 +92,8 @@ namespace Services
             using (var context = new DatabaseContext())
             {
                 return filter == null
-                    ? context.Set<Basket>().ToList()
-                    : context.Set<Basket>().Where(filter).ToList();
+                    ? context.Set<Basket>().Include(x => x.Product).ThenInclude(x => x.Category).ToList()
+                    : context.Set<Basket>().Include(x => x.Product).ThenInclude(x => x.Category).Where(filter).ToList();
             }
         }
     }

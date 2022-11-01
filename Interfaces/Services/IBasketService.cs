@@ -11,5 +11,6 @@ namespace Interfaces.Services
         public Basket GetById(int id);
         public Basket Get(Expression<Func<Basket, bool>> predicate = null);
         public List<Basket> GetList(Expression<Func<Basket, bool>> filter = null);
+        bool DeleteAll(int userId);
     }
 }

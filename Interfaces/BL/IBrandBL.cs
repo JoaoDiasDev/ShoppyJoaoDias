@@ -3,13 +3,13 @@ using System.Linq.Expressions;
 
 namespace Interfaces.BL
 {
-    public interface IBasketBL
+    public interface IBrandBL
     {
-        BasketDO Add(BasketDO model);
-        BasketDO Update(BasketDO model);
-        BasketDO GetById(int id);
-        BasketDO Get(Expression<Func<BasketDO, bool>> predicate = null);
-        List<BasketDO> GetList(Expression<Func<BasketDO, bool>> filter = null);
-        bool Delete(BasketDO model);
+        BrandDO Add(BrandDO model);
+        BrandDO Update(BrandDO model);
+        BrandDO GetById(int id);
+        BrandDO Get(Expression<Func<BrandDO, bool>> predicate = null);
+        List<BrandDO> GetList(Expression<Func<BrandDO, bool>> filter = null);
+        bool Delete(BrandDO model);
     }
 }

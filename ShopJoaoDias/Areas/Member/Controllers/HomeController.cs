@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
 using ShopJoaoDias.Areas.Member.Models;
 
 namespace ShopJoaoDias.Areas.Member.Controllers
@@ -9,7 +10,8 @@ namespace ShopJoaoDias.Areas.Member.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var user = HttpContext.Items["Model"] as UserDO;
+            return View(user);
         }
     }
 }

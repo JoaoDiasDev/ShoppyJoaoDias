@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 namespace ShopJoaoDias.Areas.Member.Controllers
 {
     [Area("Member")]
-    [MemberAuth]
     public class UserController : Controller
     {
         private IUserBL _userBL;

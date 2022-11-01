@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
 namespace ShopJoaoDias.Areas.Member.Models
@@ -29,6 +30,7 @@ namespace ShopJoaoDias.Areas.Member.Models
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
+
             base.OnActionExecuted(context);
         }
 
@@ -48,6 +50,13 @@ namespace ShopJoaoDias.Areas.Member.Models
                         {
                             context.HttpContext.Response.Redirect("/Member/User");
                         }
+
+                        var user = new UserDO
+                        {
+                            Name = username,
+                            Id = int.Parse(id)
+                        };
+                        context.HttpContext.Items.Add("Model", user);
                     }
                     catch (Exception)
                     {

@@ -51,9 +51,34 @@ namespace BL
             }
         }
 
-        public BasketDO Get(Expression<Func<BasketDO, bool>> predicate = null)
+        public bool DeleteAll(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                bool result = _basketService.DeleteAll(userId);
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public BasketDO Get(Expression<Func<Basket, bool>> predicate = null)
+        {
+            var result = new BasketDO();
+            try
+            {
+                var basket = _basketService.Get(predicate);
+                result = _mapper.Map<Basket, BasketDO>(basket);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
         }
 
         public BasketDO GetById(int id)
