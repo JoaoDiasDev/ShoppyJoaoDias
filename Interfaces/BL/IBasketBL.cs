@@ -12,6 +12,7 @@ namespace Interfaces.BL
         BasketDO Get(Expression<Func<Basket, bool>> predicate = null);
         List<BasketDO> GetList(Expression<Func<BasketDO, bool>> filter = null);
         bool Delete(BasketDO model);
-        bool DeleteAll(int id);
+        bool DeleteAll(int userId);
+        bool DeleteID(int basketId);
     }
 }

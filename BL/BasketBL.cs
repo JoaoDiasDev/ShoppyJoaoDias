@@ -51,6 +51,19 @@ namespace BL
             }
         }
 
+        public bool DeleteID(int basketId)
+        {
+            try
+            {
+                bool result = _basketService.DeleteID(basketId);
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAll(int userId)
         {
             try

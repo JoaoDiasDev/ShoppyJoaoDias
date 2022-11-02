@@ -57,6 +57,7 @@
         <!--====== Section Content ======-->
         <div class="section__content">
             <div class="container">
+                <form asp-action="Update" asp-controller="Basket">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
                         <div class="table-responsive">
@@ -100,7 +101,7 @@
 
                                                             <span class="input-counter__minus fas fa-minus"></span>
 
-                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                                            <input class="input-counter__text input-counter--text-primary-style" type="text" name="basket@(basket.Id)" value="@(basket.Piece)" data-min="1" data-max="1000">
 
                                                             <span class="input-counter__plus fas fa-plus"></span>
                                                         </div>
@@ -147,15 +148,16 @@
                                     <span>CLEAR CART</span>
                                 </a>
 
-                                <a class="route-box__link" href="cart.html">
+                                <button class="route-box__link" type="submit">
                                     <i class="fas fa-sync"></i>
 
                                     <span>UPDATE CART</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
         <!--====== End - Section Content ======-->

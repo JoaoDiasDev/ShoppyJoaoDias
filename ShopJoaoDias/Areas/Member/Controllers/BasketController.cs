@@ -93,5 +93,32 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             _basketBL.DeleteAll(userDO.Id);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult Update(IFormCollection form)
+        {
+            var basketItems = form.Keys.ToList().Where(x => x.Contains("basket")).ToList();
+
+            if (basketItems != null)
+            {
+                foreach (var item in basketItems)
+                {
+                    int id = int.Parse(item.ToString().Replace("basket", ""));
+                    int piece = int.Parse(form[item]);
+                    if (piece == 0)
+                    {
+                        _basketBL.DeleteID(id);
+                    }
+                    else
+                    {
+                        var basket = _basketBL.GetById(id);
+                        basket.Piece = piece;
+                        basket.UpdatedAt = DateTime.Now;
+                        _basketBL.Update(basket);
+                    }
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

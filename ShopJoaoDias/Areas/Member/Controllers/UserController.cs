@@ -146,5 +146,18 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             var cityDOs = _cityBL.GetList(x => x.Provinceid == id);
             return Json(cityDOs);
         }
+
+        public IActionResult LogOut()
+        {
+            if (HttpContext.Request.Cookies.Count > 0)
+            {
+                foreach (var item in HttpContext.Request.Cookies.Keys)
+                {
+                    Response.Cookies.Delete(item);
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -75,8 +75,8 @@ namespace Services
             using (var context = new DatabaseContext())
             {
                 return filter == null
-                    ? context.Set<Address>().ToList()
-                    : context.Set<Address>().Where(filter).ToList();
+                    ? context.Set<Address>().Include(x => x.City).ThenInclude(x => x.Province).ToList()
+                    : context.Set<Address>().Include(x => x.City).ThenInclude(x => x.Province).Where(filter).ToList();
             }
         }
     }

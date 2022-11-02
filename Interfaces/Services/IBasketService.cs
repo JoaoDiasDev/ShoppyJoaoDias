@@ -7,6 +7,7 @@ namespace Interfaces.Services
     {
         public Basket Add(Basket entity);
         public bool Delete(Basket entity);
+        public bool DeleteID(int basketId);
         public void Update(Basket entity);
         public Basket GetById(int id);
         public Basket Get(Expression<Func<Basket, bool>> predicate = null);

@@ -38,6 +38,24 @@ namespace Services
             }
         }
 
+        public bool DeleteID(int basketId)
+        {
+            try
+            {
+                using (DatabaseContext context = new DatabaseContext())
+                {
+                    var basket = context.Baskets.Where(x => x.Id == basketId).FirstOrDefault();
+                    context.Baskets.Remove(basket);
+                    context.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool DeleteAll(int userId)
         {
             try

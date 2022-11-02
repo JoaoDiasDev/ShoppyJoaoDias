@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics.CodeAnalysis;
 
@@ -48,7 +49,7 @@ namespace ShopJoaoDias.Areas.Member.Models
                         id = context.HttpContext.Request.Cookies["shoppyUserId"];
                         if (id == null || username == null)
                         {
-                            context.HttpContext.Response.Redirect("/Member/User");
+                            context.Result = new RedirectResult("/Member/User");
                         }
 
                         var user = new UserDO
@@ -60,12 +61,12 @@ namespace ShopJoaoDias.Areas.Member.Models
                     }
                     catch (Exception)
                     {
-                        context.HttpContext.Response.Redirect("/Member/User");
+                        context.Result = new RedirectResult("/Member/User");
                     }
                 }
                 else
                 {
-                    context.HttpContext.Response.Redirect("/Member/User");
+                    context.Result = new RedirectResult("/Member/User");
                 }
             }
             base.OnActionExecuting(context);
