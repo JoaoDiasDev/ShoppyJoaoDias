@@ -74,5 +74,18 @@ namespace ShopJoaoDias.Areas.Member.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        public IActionResult Payment(IFormFileCollection form)
+        {
+            try
+            {
+                var user = HttpContext.Items["Model"] as UserDO;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
