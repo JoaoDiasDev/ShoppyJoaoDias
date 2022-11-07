@@ -75,11 +75,34 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             }
         }
 
-        public IActionResult Payment(IFormFileCollection form)
+        public IActionResult Payment(IFormCollection form)
         {
             try
             {
                 var user = HttpContext.Items["Model"] as UserDO;
+                var thisUser = _userBL.GetById(user.Id);
+                var shippingId = int.Parse(form["shippingId"].ToString());
+                var addressId = int.Parse(form["addressId"].ToString());
+                var payment = new PaymentDO();
+                var shipping = _shippingBL.GetById(shippingId);
+                var basketList = _basketBL.GetList(x => x.Userid == user.Id);
+                decimal total = 0;
+                foreach (var basket in basketList)
+                {
+                    total += decimal.Parse((basket.Product.Price * basket.Piece).ToString());
+                }
+
+                var guid = Guid.NewGuid().ToString();
+                payment.Guid = guid;
+                payment.Userid = user.Id;
+                payment.Type = 1;
+                payment.Email = thisUser.Email;
+                payment.CreditCard = form["cardno"];
+                payment.Lastdate = form["month"] + "/" + form["year"];
+                payment.Shippingid = shippingId;
+                payment.Bankid = 0;
+                payment.Paymentstatus = 1;
+                payment.Totalprice = total + shipping.Desiprice;
             }
             catch (Exception)
             {
