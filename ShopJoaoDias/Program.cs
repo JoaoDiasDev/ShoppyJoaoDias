@@ -56,6 +56,10 @@ builder.Services.AddScoped<IShippingBL, ShippingBL>();
 builder.Services.AddScoped<IUnitBL, UnitBL>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<IWishlistBL, WishlistBL>();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto;
+});
 
 var app = builder.Build();
 
