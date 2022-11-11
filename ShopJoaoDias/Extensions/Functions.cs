@@ -33,5 +33,22 @@ namespace ShopJoaoDias.Extensions
                 url = url.Replace("--", "-");
             return url;
         }
+
+        public static string PaymentStatus(int status = 0)
+        {
+            switch (status)
+            {
+                case 0:
+                    return "New";
+                case 1:
+                    return "Shipping";
+                case 2:
+                    return "Complete";
+                case 3:
+                    return "Canceled";
+                default:
+                    return "New";
+            }
+        }
     }
 }

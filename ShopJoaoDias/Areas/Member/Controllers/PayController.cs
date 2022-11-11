@@ -160,6 +160,7 @@ namespace ShopJoaoDias.Areas.Member.Controllers
                                 UpdatedAt = DateTime.Now
                             };
                             _orderItemBL.Add(orderItem);
+                            _basketBL.Delete(basketItem);
                         }
                     }
                 }
