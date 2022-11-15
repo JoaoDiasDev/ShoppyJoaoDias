@@ -1,20 +1,20 @@
 ﻿@model BasketViewModel
 @section Head{
     <style type="text/css">
-    .productImage{
-        width: 60px;
-        height: 60px;
-        border-radius:10px;
-        float:left;
-    }
+        .productImage {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            float: left;
+        }
 
-    .productImage img {
-        max-width: 60px;
-        max-height: 60px;
-        border-radius: 10px;
-        border: 1px;
-        display: block;
-    }
+            .productImage img {
+                max-width: 60px;
+                max-height: 60px;
+                border-radius: 10px;
+                border: 1px;
+                display: block;
+            }
     </style>
 }
 
@@ -52,83 +52,7 @@
             <div class="dash">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3 col-md-12">
-
-                            <!--====== Dashboard Features ======-->
-                            <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
-                                <div class="dash__pad-1">
-
-                                    <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
-                                    <ul class="dash__f-list">
-                                        <li>
-
-                                            <a href="dashboard.html">Manage My Account</a>
-                                        </li>
-                                        <li>
-
-                                            <a href="dash-my-profile.html">My Profile</a>
-                                        </li>
-                                        <li>
-
-                                            <a href="dash-address-book.html">Address Book</a>
-                                        </li>
-                                        <li>
-
-                                            <a href="dash-track-order.html">Track Order</a>
-                                        </li>
-                                        <li>
-
-                                            <a class="dash-active" href="dash-my-order.html">My Orders</a>
-                                        </li>
-                                        <li>
-
-                                            <a href="dash-payment-option.html">My Payment Options</a>
-                                        </li>
-                                        <li>
-
-                                            <a href="dash-cancellation.html">My Returns & Cancellations</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="dash__box dash__box--bg-white dash__box--shadow dash__box--w">
-                                <div class="dash__pad-1">
-                                    <ul class="dash__w-list">
-                                        <li>
-                                            <div class="dash__w-wrap">
-
-                                                <span class="dash__w-icon dash__w-icon-style-1"><i class="fas fa-cart-arrow-down"></i></span>
-
-                                                <span class="dash__w-text">4</span>
-
-                                                <span class="dash__w-name">Orders Placed</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="dash__w-wrap">
-
-                                                <span class="dash__w-icon dash__w-icon-style-2"><i class="fas fa-times"></i></span>
-
-                                                <span class="dash__w-text">0</span>
-
-                                                <span class="dash__w-name">Cancel Orders</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="dash__w-wrap">
-
-                                                <span class="dash__w-icon dash__w-icon-style-3"><i class="far fa-heart"></i></span>
-
-                                                <span class="dash__w-text">0</span>
-
-                                                <span class="dash__w-name">Wishlist</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--====== End - Dashboard Features ======-->
-                        </div>
+                        <partial name="leftSide"/>
                         <div class="col-lg-9 col-md-12">
                             <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                 <div class="dash__pad-2">
@@ -139,8 +63,8 @@
                                         <div class="m-order__select-wrapper">
 
                                             <label class="u-s-m-r-8" for="my-order-sort">Show:</label>
-                                            <select class="select-box select-box--primary-style" id="my-order-sort" name="id" onchange="document.getElementById('orderForm').submit();">
-                                                <option selected value="0">Last 5 orders</option>
+                                            <select class="select-box select-box--primary-style" id="my-order-sort" name="id" onchange="document.getElementById('orderForm').submit();" v-model="sort">
+                                                <option value="0">Last 5 orders</option>
                                                 <option value="1">Last 15 days</option>
                                                 <option value="2">Last 30 days</option>
                                                 <option value="3">Last 6 months</option>
@@ -177,7 +101,7 @@
                                                                 <div class="description__img-wrap">
                                                                     <a href="/@orderItem.Product.Id/@orderItem.Product.Easyurl" target="_blank">
                                                                         <div class="productImage">
-                                                                        <img class="u-img-fluid" src="@orderItem.Product.Image" alt="">
+                                                                            <img class="u-img-fluid" src="@orderItem.Product.Image" alt="">
                                                                         </div>
                                                                     </a>
                                                                 </div>
@@ -230,3 +154,17 @@
     </div>
     <!--====== End - Section 2 ======-->
 </div>
+
+@section Scripts{
+    <script src="~/js/vue/vue.js"></script>
+
+    <script>
+        var v = new Vue({
+            el: "#app",
+            data: {
+                sort: "@ViewBag.sort"
+            }
+        })
+
+    </script>
+}

@@ -50,13 +50,15 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             }
             else
             {
-                paymentList = _paymentBL.GetList(x.Userid == user.Id).ToList();
+                paymentList = _paymentBL.GetList(x => x.Userid == user.Id).ToList();
             }
 
             var model = new BasketViewModel
             {
                 PaymentList = paymentList
             };
+
+            ViewBag.Sort = id;
 
             return View(model);
         }
