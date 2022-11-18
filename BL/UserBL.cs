@@ -108,6 +108,7 @@ namespace BL
             {
                 entity = _mapper.Map<UserDO, User>(model);
                 _userService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {
