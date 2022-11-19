@@ -1,5 +1,8 @@
-﻿using Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+
+using DAL.MySqlDbContext;
+
+using Entities;
 
 namespace Interfaces.BL
 {
@@ -8,7 +11,7 @@ namespace Interfaces.BL
         AddressDO Add(AddressDO model);
         AddressDO Update(AddressDO model);
         AddressDO GetById(int id);
-        AddressDO Get(Expression<Func<AddressDO, bool>> predicate = null);
+        AddressDO Get(Expression<Func<Address, bool>> predicate = null);
         List<AddressDO> GetList(Expression<Func<AddressDO, bool>> filter = null);
         bool Delete(AddressDO model);
     }

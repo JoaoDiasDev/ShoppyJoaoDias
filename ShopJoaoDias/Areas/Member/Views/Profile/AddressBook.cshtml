@@ -76,7 +76,7 @@
                                                 <tr>
                                                     <td>
 
-                                                        <a class="address-book-edit btn--e-transparent-platinum-b-2" href="dash-address-edit.html">Edit</a>
+                                                        <a class="address-book-edit btn--e-transparent-platinum-b-2" asp-action="EditAddress" asp-route-id="@address.Id" >Edit</a>
                                                     </td>
                                                     <td>@address.Name @address.Surname</td>
                                                     <td>@address.Address1</td>

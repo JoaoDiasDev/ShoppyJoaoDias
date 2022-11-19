@@ -1,6 +1,9 @@
 ﻿using Entities;
+
 using Interfaces.BL;
+
 using Microsoft.AspNetCore.Mvc;
+
 using ShopJoaoDias.Areas.Member.Models;
 using ShopJoaoDias.Models;
 
@@ -12,11 +15,15 @@ namespace ShopJoaoDias.Areas.Member.Controllers
     {
         private IUserBL _userBL;
         private IAddressBL _addressBL;
+        private IProvinceBL _provinceBL;
+        private ICityBL _cityBL;
 
         public ProfileController(IServiceProvider serviceProvider)
         {
             _userBL = serviceProvider.GetRequiredService<IUserBL>();
             _addressBL = serviceProvider.GetRequiredService<IAddressBL>();
+            _provinceBL = serviceProvider.GetRequiredService<IProvinceBL>();
+            _cityBL = serviceProvider.GetRequiredService<ICityBL>();
         }
 
         public IActionResult Index()
@@ -79,6 +86,105 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             };
 
             return View(model);
+        }
+
+        public IActionResult AddAddress()
+        {
+            List<ProvinceDO> provinces = _provinceBL.GetList();
+            var model = new AddressViewModel
+            {
+                Provinces = provinces
+            };
+            return View(model);
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult AddAddress(AddressViewModel model)
+        {
+            var provinces = _provinceBL.GetList();
+            var addressViewModel = new AddressViewModel
+            {
+                Provinces = provinces
+            };
+
+            try
+            {
+                var user = HttpContext.Items["Model"] as UserDO;
+                var myUser = _userBL.GetById(user.Id);
+                var address = model.Address;
+                address.Userid = myUser.Id;
+                address.Country = Convert.ToInt32(address.Country);
+                address.Cityid = Convert.ToInt32(address.Cityid);
+                address.CreatedAt = DateTime.Now;
+                address.UpdatedAt = DateTime.Now;
+                var addedAddress = _addressBL.Add(address);
+                if (addedAddress != null)
+                {
+                    return RedirectToAction("AddressBook");
+                }
+                else
+                {
+                    ViewBag.error = "something went wrong please try it again!";
+                    return View(addressViewModel);
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.error = "something went wrong please try it again!";
+                return View(addressViewModel);
+            }
+        }
+
+        public IActionResult EditAddress(int id)
+        {
+            try
+            {
+                var user = HttpContext.Items["Model"] as UserDO;
+                var myUser = _userBL.GetById(user.Id);
+                var address = _addressBL.Get(x => x.Id == id);
+                var provinces = _provinceBL.GetList(x => x.Id == id);
+                var model = new AddressViewModel
+                {
+                    Provinces = provinces,
+                    Address = address,
+                };
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Something went wrong!");
+            }
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult EditAddress(int id, AddressViewModel model)
+        {
+            var provinces = _provinceBL.GetList();
+            var addressViewModel = new AddressViewModel
+            {
+                Provinces = provinces
+            };
+
+            try
+            {
+                var user = HttpContext.Items["Model"] as UserDO;
+                var address = model.Address;
+                address.Userid = user.Id;
+                address.Id = id;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        public IActionResult SelectCity(int id)
+        {
+            var cities = _cityBL.GetList(x => x.Provinceid == id).ToList();
+            return Json(cities);
         }
     }
 }

@@ -1,10 +1,15 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+
+using AutoMapper;
+
 using DAL.MySqlDbContext;
+
 using Entities;
+
 using Interfaces.BL;
 using Interfaces.Services;
+
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
 namespace BL
 {
@@ -51,9 +56,19 @@ namespace BL
             }
         }
 
-        public AddressDO Get(Expression<Func<AddressDO, bool>> predicate = null)
+        public AddressDO Get(Expression<Func<Address, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            AddressDO result;
+            try
+            {
+                Address admin = _AddressService.Get(predicate);
+                result = _mapper.Map<Address, AddressDO>(admin);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public AddressDO GetById(int id)
@@ -98,6 +113,7 @@ namespace BL
             {
                 entity = _mapper.Map<AddressDO, Address>(model);
                 _AddressService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {
