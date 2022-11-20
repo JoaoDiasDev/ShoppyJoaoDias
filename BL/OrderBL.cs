@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using DAL.MySqlDbContext;
 using Entities;
 using Interfaces.BL;
 using Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
 namespace BL
 {
@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public OrderDO Get(Expression<Func<OrderDO, bool>> predicate = null)
+        public OrderDO Get(Expression<Func<Order, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            OrderDO result;
+            try
+            {
+                Order admin = _orderService.Get(predicate);
+                result = _mapper.Map<Order, OrderDO>(admin);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public OrderDO GetById(int id)
@@ -98,6 +108,7 @@ namespace BL
             {
                 entity = _mapper.Map<OrderDO, Order>(model);
                 _orderService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {

@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using DAL.MySqlDbContext;
 using Entities;
 using Interfaces.BL;
 using Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
 namespace BL
 {
@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public PaymentDO Get(Expression<Func<PaymentDO, bool>> predicate = null)
+        public PaymentDO Get(Expression<Func<Payment, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            PaymentDO result;
+            try
+            {
+                Payment admin = _paymentService.Get(predicate);
+                result = _mapper.Map<Payment, PaymentDO>(admin);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public PaymentDO GetById(int id)
@@ -98,6 +108,7 @@ namespace BL
             {
                 entity = _mapper.Map<PaymentDO, Payment>(model);
                 _paymentService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {

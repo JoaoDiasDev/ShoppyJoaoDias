@@ -1,5 +1,6 @@
-﻿using Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using DAL.MySqlDbContext;
+using Entities;
 
 namespace Interfaces.BL
 {
@@ -8,7 +9,7 @@ namespace Interfaces.BL
         OrderDO Add(OrderDO model);
         OrderDO Update(OrderDO model);
         OrderDO GetById(int id);
-        OrderDO Get(Expression<Func<OrderDO, bool>> predicate = null);
+        OrderDO Get(Expression<Func<Order, bool>> predicate = null);
         List<OrderDO> GetList(Expression<Func<OrderDO, bool>> filter = null);
         bool Delete(OrderDO model);
     }

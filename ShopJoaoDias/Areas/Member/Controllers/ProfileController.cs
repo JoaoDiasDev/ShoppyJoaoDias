@@ -141,7 +141,7 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             {
                 var user = HttpContext.Items["Model"] as UserDO;
                 var myUser = _userBL.GetById(user.Id);
-                var address = _addressBL.Get(x => x.Id == id);
+                var address = _addressBL.Get(x => x.Id == id && x.Userid == myUser.Id);
                 var provinces = _provinceBL.GetList(x => x.Id == id);
                 var model = new AddressViewModel
                 {
@@ -172,11 +172,22 @@ namespace ShopJoaoDias.Areas.Member.Controllers
                 var address = model.Address;
                 address.Userid = user.Id;
                 address.Id = id;
+                address.UpdatedAt = DateTime.Now;
+                var addedAddress = _addressBL.Update(address);
+                if (addedAddress != null)
+                {
+                    return RedirectToAction("AddressBook");
+                }
+                else
+                {
+                    ViewBag.error = "Something went wrong please try again!";
+                    return View(addressViewModel);
+                }
             }
             catch (Exception)
             {
-
-                throw;
+                ViewBag.error = "Something went wrong please try again!";
+                return View(addressViewModel);
             }
         }
 

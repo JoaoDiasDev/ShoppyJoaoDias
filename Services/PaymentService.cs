@@ -1,7 +1,7 @@
-﻿using DAL.MySqlDbContext;
+﻿using System.Linq.Expressions;
+using DAL.MySqlDbContext;
 using Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Services
 {
@@ -65,7 +65,13 @@ namespace Services
         {
             using (var context = new DatabaseContext())
             {
-                return context.Set<Payment>().FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
+                return context.Set<Payment>()
+                    .Include(x => x.Orders)
+                    .ThenInclude(x => x.Orderitems)
+                    .ThenInclude(x => x.Product)
+                    .Include(x => x.User)
+                    .Include(x => x.Shipping)
+                    .FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
             }
         }
 
@@ -74,8 +80,8 @@ namespace Services
             using (var context = new DatabaseContext())
             {
                 return filter == null
-                    ? context.Set<Payment>().Include(x => x.Orders).ThenInclude(x => x.Orderitems).ThenInclude(x => x.Product).ToList()
-                    : context.Set<Payment>().Include(x => x.Orders).ThenInclude(x => x.Orderitems).ThenInclude(x => x.Product).Where(filter).ToList();
+                    ? context.Set<Payment>().Include(x => x.Orders).ThenInclude(x => x.Orderitems).ThenInclude(x => x.Product).Include(x => x.User).Include(x => x.Shipping).ToList()
+                    : context.Set<Payment>().Include(x => x.Orders).ThenInclude(x => x.Orderitems).ThenInclude(x => x.Product).Include(x => x.User).Include(x => x.Shipping).Where(filter).ToList();
             }
         }
     }

@@ -1,0 +1,126 @@
+﻿@model PaymentDO
+
+@{
+    var order = Model.Orders.FirstOrDefault();
+    var basket = order.Orderitems;
+}
+
+<div class="container-fluid" id="app">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h4 class="card-title">Order Details</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Payment Number</td>
+                        <td>@Model.Id</td>
+                    </tr>
+                    <tr>
+                        <td>User</td>
+                        <td>@Model.User.Email (@Model.User.Name @Model.User.Surname)</td>
+                    </tr>
+                    <tr>
+                        <td>Product Price</td>
+                        <td>@Model.Productprice</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping Price</td>
+                        <td>@Model.Shippingprice</td>
+                    </tr>
+                    <tr>
+                        <td>Total Price</td>
+                        <td>@Model.Totalprice</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Method</td>
+                        <td>@(Model.Type == 1 ? "Credit Card" : "Cash on delivery")</td>
+                    </tr>
+                </table>
+                <h2>Products</h2>
+                <table class="table table-bordered">
+                    @foreach (var item in basket)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.Product.Image" height="40" />
+                            </td>
+                            <td>
+                                <a href="/@(item.Product.Id)/@(item.Product.Easyurl)" target="_blank">
+                                    @item.Product.Name
+                                </a>
+                            </td>
+                            @if (@item.Quantity > 1)
+                            {
+                                <td>
+
+                                    @item.Quantity pieces
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+
+                                    @item.Quantity piece
+                                </td>
+                            }
+                            <td>$@item.Price</td>
+                        </tr>
+                    }
+                </table>
+                <h2>Change Status</h2>
+                <form method="post">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select class="form-control" name="status" v-model="status">
+                                    <option value="0">New</option>
+                                    <option value="1">Shipped</option>
+                                    <option value="2">Completed</option>
+                                    <option value="3">Canceled</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <textarea class="form-control" name="description">@order.Description</textarea>
+                            </td>
+                        </tr>
+                        <tr v-if="status > 0">
+                            <td>Shipping Date</td>
+                            <td>
+                                <input type="@(order.ShippingDate == null ? "datetime-local" : "text")" name="shipping-date" value="@order.ShippingDate" />
+                            </td>
+                        </tr>
+                        <tr v-if="status > 0">
+                            <td>Shipping Chase Number</td>
+                            <td>
+                                <input type="text" name="shipping_case_number" value="@order.ShippingChaseNo" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="submit" class="btn btn--e-brand" value="Save" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/vue/vue.js"></script>
+    <script src="~/js/axios/axios.min.js"></script>
+
+    <script type="text/javascript">
+        var r = new Vue({
+            el: "#app",
+            data: {
+                status: @Model.Status
+                    }
+        })
+    </script>
+}

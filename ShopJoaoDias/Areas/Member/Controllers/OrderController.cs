@@ -62,5 +62,18 @@ namespace ShopJoaoDias.Areas.Member.Controllers
 
             return View(model);
         }
+
+        public IActionResult Detail(int id)
+        {
+            var payment = _paymentBL.Get(x => x.Id == id);
+            var address = _addressBL.GetById(int.Parse(payment.Orders.FirstOrDefault().DeliveryAddressId.ToString()));
+            var model = new BasketViewModel
+            {
+                Payment = payment,
+                Address = address
+            };
+
+            return View(model);
+        }
     }
 }

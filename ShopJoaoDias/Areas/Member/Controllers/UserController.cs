@@ -1,9 +1,9 @@
-﻿using Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using Entities;
 using Interfaces.BL;
 using Microsoft.AspNetCore.Mvc;
 using ShopJoaoDias.Areas.Member.Models;
 using ShopJoaoDias.Extensions;
-using System.ComponentModel.DataAnnotations;
 
 namespace ShopJoaoDias.Areas.Member.Controllers
 {
@@ -158,6 +158,11 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult LostPassword()
+        {
+            return View();
         }
     }
 }

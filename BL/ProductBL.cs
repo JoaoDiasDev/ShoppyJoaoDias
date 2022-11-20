@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using DAL.MySqlDbContext;
 using Entities;
 using Interfaces.BL;
 using Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
 namespace BL
 {
@@ -125,6 +125,7 @@ namespace BL
             {
                 entity = _mapper.Map<ProductDO, Product>(model);
                 _productService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {

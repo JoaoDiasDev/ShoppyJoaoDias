@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using DAL.MySqlDbContext;
 using Entities;
 using Interfaces.BL;
 using Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
 namespace BL
 {
@@ -98,6 +98,7 @@ namespace BL
             {
                 entity = _mapper.Map<BankDO, Bank>(model);
                 _bankService.Update(entity);
+                result = model;
             }
             catch (Exception)
             {

@@ -41,7 +41,7 @@ namespace ShopJoaoDias.Extensions
                 case 0:
                     return "New";
                 case 1:
-                    return "Shipping";
+                    return "Shipped";
                 case 2:
                     return "Complete";
                 case 3:
