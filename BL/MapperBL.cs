@@ -86,7 +86,7 @@ namespace BL
                 .ForMember(dest => dest.Cities, opt => opt.MapFrom(src => src.Cities))
                 .ReverseMap();
 
-            CreateMap<ResetpasswordDO, Resetpassword>()
+            CreateMap<ResetPasswordDO, ResetPassword>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
 

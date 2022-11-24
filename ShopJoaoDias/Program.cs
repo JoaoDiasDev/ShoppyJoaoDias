@@ -26,6 +26,7 @@ builder.Services.AddScoped<ISettingService, SettingService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IResetPasswordService, ResetPasswordService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddControllersWithViews();
 
@@ -55,6 +56,7 @@ builder.Services.AddScoped<ISettingBL, SettingBL>();
 builder.Services.AddScoped<IShippingBL, ShippingBL>();
 builder.Services.AddScoped<IUnitBL, UnitBL>();
 builder.Services.AddScoped<IUserBL, UserBL>();
+builder.Services.AddScoped<IResetPasswordBL, ResetPasswordBL>();
 builder.Services.AddScoped<IWishlistBL, WishlistBL>();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {

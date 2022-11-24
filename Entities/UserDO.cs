@@ -11,7 +11,7 @@ namespace Entities
             Orderitems = new List<OrderitemDO>();
             Orders = new List<OrderDO>();
             Payments = new List<PaymentDO>();
-            Resetpasswords = new List<ResetpasswordDO>();
+            Resetpasswords = new List<ResetPasswordDO>();
             Wishlists = new List<WishlistDO>();
         }
 
@@ -61,7 +61,7 @@ namespace Entities
         public virtual List<OrderitemDO> Orderitems { get; set; }
         public virtual List<OrderDO> Orders { get; set; }
         public virtual List<PaymentDO> Payments { get; set; }
-        public virtual List<ResetpasswordDO> Resetpasswords { get; set; }
+        public virtual List<ResetPasswordDO> Resetpasswords { get; set; }
         public virtual List<WishlistDO> Wishlists { get; set; }
     }
 }

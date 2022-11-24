@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.MySqlDbContext
+﻿namespace DAL.MySqlDbContext
 {
-    public partial class Resetpassword
+    public partial class ResetPassword
     {
         public int Id { get; set; }
         public int Userid { get; set; }

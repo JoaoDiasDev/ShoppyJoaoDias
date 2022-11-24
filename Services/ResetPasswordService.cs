@@ -5,22 +5,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
-    public class ProvinceService : IProvinceService
+    public class ResetPasswordService : IResetPasswordService
     {
-        public Province Add(Province entity)
+        public ResetPassword Add(ResetPassword entity)
         {
-            Province? province = null;
+            ResetPassword? result = null;
             using (var context = new DatabaseContext())
             {
                 var addProvince = context.Entry(entity);
                 addProvince.State = EntityState.Added;
                 context.SaveChanges();
-                province = entity;
+                result = entity;
             }
-            return province;
+            return result;
         }
 
-        public bool Delete(Province entity)
+        public bool Delete(ResetPassword entity)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Services
             }
         }
 
-        public void Update(Province entity)
+        public void Update(ResetPassword entity)
         {
             using (var context = new DatabaseContext())
             {
@@ -48,32 +48,32 @@ namespace Services
             }
         }
 
-        public Province GetById(int id)
+        public ResetPassword GetById(int id)
         {
             using (var context = new DatabaseContext())
             {
-                return context.Set<Province>()
-                    .Where(province => province.Id == id)
-                    .Include(iCities => iCities.Cities)
+                return context.Set<ResetPassword>()
+                    .Where(x => x.Id == id)
+                    .Include(i => i.User)
                     .FirstOrDefault();
             }
         }
 
-        public Province Get(Expression<Func<Province, bool>> predicate = null)
+        public ResetPassword Get(Expression<Func<ResetPassword, bool>> predicate = null)
         {
             using (var context = new DatabaseContext())
             {
-                return context.Set<Province>().FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
+                return context.Set<ResetPassword>().FirstOrDefault(predicate ?? throw new ArgumentException(nameof(predicate)));
             }
         }
 
-        public List<Province> GetList(Expression<Func<Province, bool>> filter = null)
+        public List<ResetPassword> GetList(Expression<Func<ResetPassword, bool>> filter = null)
         {
             using (var context = new DatabaseContext())
             {
                 return filter == null
-                    ? context.Set<Province>().ToList()
-                    : context.Set<Province>().Where(filter).ToList();
+                    ? context.Set<ResetPassword>().ToList()
+                    : context.Set<ResetPassword>().Where(filter).ToList();
             }
         }
     }

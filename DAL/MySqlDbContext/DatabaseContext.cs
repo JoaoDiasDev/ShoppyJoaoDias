@@ -28,7 +28,7 @@ namespace DAL.MySqlDbContext
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<Province> Provinces { get; set; } = null!;
-        public virtual DbSet<Resetpassword> Resetpasswords { get; set; } = null!;
+        public virtual DbSet<ResetPassword> Resetpasswords { get; set; } = null!;
         public virtual DbSet<Setting> Settings { get; set; } = null!;
         public virtual DbSet<Shipping> Shippings { get; set; } = null!;
         public virtual DbSet<Slider> Sliders { get; set; } = null!;
@@ -820,7 +820,7 @@ namespace DAL.MySqlDbContext
                     .HasDefaultValueSql("'0'");
             });
 
-            modelBuilder.Entity<Resetpassword>(entity =>
+            modelBuilder.Entity<ResetPassword>(entity =>
             {
                 entity.ToTable("resetpassword");
 

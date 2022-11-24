@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DAL.MySqlDbContext
+﻿namespace DAL.MySqlDbContext
 {
     public partial class User
     {
@@ -12,7 +9,7 @@ namespace DAL.MySqlDbContext
             Orderitems = new HashSet<Orderitem>();
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
-            Resetpasswords = new HashSet<Resetpassword>();
+            Resetpasswords = new HashSet<ResetPassword>();
             Wishlists = new HashSet<Wishlist>();
         }
 
@@ -42,7 +39,7 @@ namespace DAL.MySqlDbContext
         public virtual ICollection<Orderitem> Orderitems { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
-        public virtual ICollection<Resetpassword> Resetpasswords { get; set; }
+        public virtual ICollection<ResetPassword> Resetpasswords { get; set; }
         public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

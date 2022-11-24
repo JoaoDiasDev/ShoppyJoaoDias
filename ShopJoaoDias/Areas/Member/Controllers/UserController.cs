@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Net.Mail;
 using Entities;
 using Interfaces.BL;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +15,16 @@ namespace ShopJoaoDias.Areas.Member.Controllers
         private IUserBL _userBL;
         private ICityBL _cityBL;
         private IProvinceBL _provinceBL;
+        private IResetPasswordBL _resetPasswordBL;
+        private IConfiguration _configuration { get; set; }
 
         public UserController(IServiceProvider serviceProvider)
         {
             _userBL = serviceProvider.GetRequiredService<IUserBL>();
             _cityBL = serviceProvider.GetRequiredService<ICityBL>();
             _provinceBL = serviceProvider.GetRequiredService<IProvinceBL>();
+            _resetPasswordBL = serviceProvider.GetRequiredService<IResetPasswordBL>();
+            _configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
         public IActionResult Index()
@@ -163,6 +169,92 @@ namespace ShopJoaoDias.Areas.Member.Controllers
         public IActionResult LostPassword()
         {
             return View();
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult LostPassword(IFormCollection form)
+        {
+            try
+            {
+                var email = form["email"];
+                var user = _userBL.Get(x => x.Email == email);
+                if (user != null)
+                {
+                    try
+                    {
+                        var guid = Guid.NewGuid().ToString();
+                        var resetPassword = new ResetPasswordDO
+                        {
+                            CreatedAt = DateTime.Now,
+                            Email = user.Email,
+                            Guid = guid,
+                            Lastdate = DateTime.Now.AddHours(3),
+                            Userid = user.Id
+                        };
+
+                        var addResetPassword = _resetPasswordBL.Add(resetPassword);
+                        if (addResetPassword != null)
+                        {
+                            var sendingEmail = _configuration.GetSection("MailAddress").GetSection("address").Value;
+                            var password = _configuration.GetSection("password").Value;
+                            var siteAddress = _configuration.GetSection("SiteAddress").Value;
+
+                            var dateTime = DateTime.Now;
+
+                            var mailIt = new MailMessage();
+                            mailIt.To.Add(new MailAddress(user.Email, user.Name + " " + user.Surname));
+                            mailIt.From = new MailAddress(sendingEmail, "Shoppy System");
+                            mailIt.Subject = "Reset ur password";
+                            mailIt.Body = $@"<h4>You requested to renew your password</h4>
+                                             <h5>Time</h5>{dateTime}
+                                             <a href='{siteAddress}/Member/User/NewPass/{guid}'> Please click this URL</a>";
+                            mailIt.IsBodyHtml = true;
+                            var client = new SmtpClient();
+
+                            client.Host = "smtp.yandex.com";
+                            client.Port = 587;
+                            client.EnableSsl = true;
+                            client.UseDefaultCredentials = false;
+                            client.Credentials = new NetworkCredential(sendingEmail, password);
+                            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                            client.Send(mailIt);
+                            return Ok(new { text = "success" });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return BadRequest(ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+            return View();
+        }
+
+        public IActionResult NewPass(string id)
+        {
+            var resetPassword = _resetPasswordBL.Get(x => x.Guid == id);
+            if (resetPassword != null)
+            {
+                if (resetPassword.Lastdate(DateTime.Now))
+                {
+                    return BadRequest("please use another token to change your password");
+                }
+                else
+                {
+                    return View(resetPassword);
+                }
+            }
+            else
+            {
+                return BadRequest("Something went wrong please try it again!");
+            }
         }
     }
 }
