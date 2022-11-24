@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Entities
 {
@@ -45,10 +46,13 @@ namespace Entities
         public int? IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
+        [JsonIgnore]
         public virtual CityDO City { get; set; } = null!;
+        [JsonIgnore]
         public virtual UserDO User { get; set; } = null!;
+        [JsonIgnore]
         public virtual List<OrderDO> OrderDeliveryAddresses { get; set; }
+        [JsonIgnore]
         public virtual List<OrderDO> OrderInvoiceAddresses { get; set; }
     }
 }

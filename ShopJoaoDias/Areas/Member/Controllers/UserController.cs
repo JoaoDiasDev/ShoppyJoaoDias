@@ -196,7 +196,7 @@ namespace ShopJoaoDias.Areas.Member.Controllers
                         if (addResetPassword != null)
                         {
                             var sendingEmail = _configuration.GetSection("MailAddress").GetSection("address").Value;
-                            var password = _configuration.GetSection("password").Value;
+                            var password = _configuration.GetSection("MailAddress").GetSection("password").Value;
                             var siteAddress = _configuration.GetSection("SiteAddress").Value;
 
                             var dateTime = DateTime.Now;
@@ -242,7 +242,7 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             var resetPassword = _resetPasswordBL.Get(x => x.Guid == id);
             if (resetPassword != null)
             {
-                if (resetPassword.Lastdate(DateTime.Now))
+                if (resetPassword.Lastdate < DateTime.Now)
                 {
                     return BadRequest("please use another token to change your password");
                 }
@@ -254,6 +254,32 @@ namespace ShopJoaoDias.Areas.Member.Controllers
             else
             {
                 return BadRequest("Something went wrong please try it again!");
+            }
+        }
+
+        [HttpPost, AutoValidateAntiforgeryToken]
+        public IActionResult NewPass(string id, IFormCollection form)
+        {
+            var resetPassword = _resetPasswordBL.Get(x => x.Guid == id);
+            if (resetPassword != null)
+            {
+                var password = form["password"];
+                var confirmPassword = form["confirmPassword"];
+                if (password == confirmPassword)
+                {
+                    var user = _userBL.GetById(resetPassword.Userid);
+                    user.Password = Encryption.Encrypt(password);
+                    _userBL.Update(user);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return BadRequest("something went wrong please try it again!");
+                }
+            }
+            else
+            {
+                return BadRequest("something went wrong please try it again!");
             }
         }
     }

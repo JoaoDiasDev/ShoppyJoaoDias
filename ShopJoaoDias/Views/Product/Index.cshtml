@@ -2,6 +2,14 @@
 
 @{
     var productDO = Model.ProductDO;
+    var username = "";
+    var userId = 0;
+    var user = Context.Request.Cookies.Keys.Where(x => x.ToString() == "shoppyUsername").Count();
+    if (user > 0)
+    {
+        username = Context.Request.Cookies["shoppyUsername"];
+        userId = int.Parse(Context.Request.Cookies["shoppyUserId"]);
+    }
 }
 
 <div class="app-content">
@@ -133,12 +141,21 @@
                             <span class="pd-detail__preview-desc">@Model.ProductDO.Description</span>
                         </div>
                         <div class="u-s-m-b-15">
-                            <div class="pd-detail__inline">
+                            <div class="pd-detail__inline" id="wishDiv">
 
                                 <span class="pd-detail__click-wrap">
-                                    <i class="far fa-heart u-s-m-r-6"></i>
+                                    @if (userId > 0)
+                                    {
+                                        <i class="far fa-heart u-s-m-r-6" v-if="wish==0"></i>
+                                        <i class="fa fa-heart u-s-m-r-6" v-if="wish==1" style="color:#ff4500"></i>
+                                        <a v-on:click="addWishList(@productDO.Id)" v-if="wish==0">Add to Wishlist</a>
+                                        <a v-on:click="delWishList(@productDO.Id)" v-if="wish==1">Remove from Wishlist</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="Member" asp-controller="User">Add to Wishlist</a>
+                                    }
 
-                                    <a href="signin.html">Add to Wishlist</a>
 
                                     <span class="pd-detail__click-count">(222)</span>
                                 </span>
@@ -182,7 +199,7 @@
                         </div>
                         <div class="u-s-m-b-15">
                             <form class="pd-detail__form" asp-area="Member" asp-controller="Basket" asp-action="AddBasket" method="post">
-                                <input type="hidden" value="@productDO.Id" name="productId"/>
+                                <input type="hidden" value="@productDO.Id" name="productId" />
                                 <div class="pd-detail-inline-2">
                                     <div class="u-s-m-b-15">
 
@@ -353,3 +370,35 @@
         </div>
     </div>
 </div>
+@section Scripts {
+
+
+    <script type="text/javascript">
+        var wl = new Vue({
+            el: "#wishDiv",
+            data: {
+                productId: @Model.ProductDO.Id,
+                wish: 0
+            },
+            created() {
+                axios.get("/Json/ProductWishList/" + this.productId).then(resp => {
+                    this.wish = 1
+                });
+            },
+            methods: {
+                delWishList: function (id) {
+                    axios.get("/Product/DeleteWish/" + id).then(resp => {
+                        this.wish = 0
+                    });
+                },
+                addWishList: function () {
+                    axios.get("/Product/AddWishList/" + id).then(resp => {
+                        this.wish = 1
+                    });
+                }
+            }
+        })
+
+
+    </script>
+}

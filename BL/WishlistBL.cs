@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public WishlistDO Get(Expression<Func<WishlistDO, bool>> predicate = null)
+        public WishlistDO Get(Expression<Func<Wishlist, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            WishlistDO result;
+            try
+            {
+                Wishlist admin = _wishlistService.Get(predicate);
+                result = _mapper.Map<Wishlist, WishlistDO>(admin);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public WishlistDO GetById(int id)

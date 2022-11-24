@@ -1,5 +1,6 @@
-﻿using Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using DAL.MySqlDbContext;
+using Entities;
 
 namespace Interfaces.BL
 {
@@ -8,7 +9,7 @@ namespace Interfaces.BL
         WishlistDO Add(WishlistDO model);
         WishlistDO Update(WishlistDO model);
         WishlistDO GetById(int id);
-        WishlistDO Get(Expression<Func<WishlistDO, bool>> predicate = null);
+        WishlistDO Get(Expression<Func<Wishlist, bool>> predicate = null);
         List<WishlistDO> GetList(Expression<Func<WishlistDO, bool>> filter = null);
         bool Delete(WishlistDO model);
     }

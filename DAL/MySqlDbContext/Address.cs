@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace DAL.MySqlDbContext
 {
@@ -24,10 +23,14 @@ namespace DAL.MySqlDbContext
         public int? IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        [JsonIgnore]
 
         public virtual City City { get; set; } = null!;
+        [JsonIgnore]
         public virtual User User { get; set; } = null!;
+        [JsonIgnore]
         public virtual ICollection<Order> OrderDeliveryAddresses { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Order> OrderInvoiceAddresses { get; set; }
     }
 }

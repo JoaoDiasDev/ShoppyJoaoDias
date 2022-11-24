@@ -120,6 +120,8 @@ namespace BL
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
                 .ReverseMap();
 
+            CreateMap<SliderDO, Slider>()
+                .ReverseMap();
 
         }
     }

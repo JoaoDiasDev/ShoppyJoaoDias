@@ -9,11 +9,13 @@ namespace ShopJoaoDias.Controllers
     {
         private IProductBL _productBL;
         private ICategoryBL _categoryBL;
+        private IWishlistBL _wishListBL;
 
         public ProductController(IServiceProvider serviceProvider)
         {
             _productBL = serviceProvider.GetRequiredService<IProductBL>();
             _categoryBL = serviceProvider.GetRequiredService<ICategoryBL>();
+            _wishListBL = serviceProvider.GetRequiredService<IWishlistBL>();
         }
 
         [Route("{id:int}/{slug}")]
@@ -49,8 +51,85 @@ namespace ShopJoaoDias.Controllers
 
                 throw;
             }
+        }
 
-            return View();
+        public IActionResult AddWishList(int id)
+        {
+            var username = HttpContext.Request.Cookies["shoppyUsername"];
+            var userId = HttpContext.Request.Cookies["shoppyUserId"];
+            if (userId == null || username == null)
+            {
+                return Ok("0");
+            }
+            else
+            {
+                var wishCheck = _wishListBL.Get(x => x.Productid == id && x.Userid == int.Parse(userId));
+                if (wishCheck == null)
+                {
+                    var wishListDO = new WishlistDO
+                    {
+                        Createdat = DateTime.Now,
+                        Productid = id,
+                        Updatedat = DateTime.Now,
+                        Userid = int.Parse(userId)
+
+                    };
+                    _wishListBL.Add(wishListDO);
+                }
+                return Ok("1");
+            }
+        }
+
+        public IActionResult DeleteWish(int id)
+        {
+            var username = HttpContext.Request.Cookies["shoppyUsername"];
+            var userId = HttpContext.Request.Cookies["shoppyUserId"];
+            if (userId == null || username == null)
+            {
+                return Ok("0");
+            }
+            else
+            {
+                var wishList = _wishListBL.Get(x => x.Productid == id && x.Userid == int.Parse(userId));
+                if (wishList != null)
+                {
+                    _wishListBL.Delete(wishList);
+                }
+                return Ok("1");
+            }
+        }
+
+        [HttpGet]
+        [Route("/Json/ProductWishList/{id}")]
+        public IActionResult ProductWishList(int id)
+        {
+            if (id > 0)
+            {
+
+
+                var username = HttpContext.Request.Cookies["shoppyUsername"];
+                var userId = HttpContext.Request.Cookies["shoppyUserId"];
+                if (userId == null && username == null)
+                {
+                    return Ok("0");
+                }
+                else
+                {
+                    var wishList = _wishListBL.Get(x => x.Userid == int.Parse(userId) && x.Productid == id);
+                    if (wishList != null)
+                    {
+                        return Ok("1");
+                    }
+                    else
+                    {
+                        return Ok("0");
+                    }
+                }
+            }
+            else
+            {
+                return Ok("0");
+            }
         }
     }
 }
