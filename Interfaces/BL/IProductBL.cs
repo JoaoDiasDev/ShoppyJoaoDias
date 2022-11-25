@@ -1,6 +1,6 @@
-﻿using DAL.MySqlDbContext;
+﻿using System.Linq.Expressions;
+using DAL.MySqlDbContext;
 using Entities;
-using System.Linq.Expressions;
 
 namespace Interfaces.BL
 {
@@ -11,7 +11,7 @@ namespace Interfaces.BL
         bool Delete(ProductDO model);
         ProductDO GetById(int id);
         ProductDO Get(Expression<Func<Product, bool>> predicate = null);
-        List<ProductDO> GetList(Expression<Func<ProductDO, bool>> filter = null);
+        List<ProductDO> GetList(Expression<Func<Product, bool>> filter = null);
         List<ProductDO> GetProductPerPage(int categoryId, int page, bool isParentCategory);
     }
 }

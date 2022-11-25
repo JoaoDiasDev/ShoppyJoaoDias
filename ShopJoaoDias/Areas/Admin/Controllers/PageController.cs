@@ -2,35 +2,34 @@
 using Interfaces.BL;
 using Microsoft.AspNetCore.Mvc;
 using ShopJoaoDias.Areas.Member.Models;
-using ShopJoaoDias.Helpers;
+using ShopJoaoDias.Extensions;
 
 namespace ShopJoaoDias.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [MemberAuth]
-    public class SliderController : Controller
+    public class PageController : Controller
     {
-        private ISliderBL _sliderBL;
-        private IWebHostEnvironment _hosting;
+        private IPageBL _pageBL;
 
-        public SliderController(ServiceProvider serviceProvider)
+        public PageController(IServiceProvider serviceProvider)
         {
-            _sliderBL = serviceProvider.GetRequiredService<ISliderBL>();
-            _hosting = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+            _pageBL = serviceProvider.GetRequiredService<IPageBL>();
         }
 
         public IActionResult Index()
         {
-            var sliderList = _sliderBL.GetList();
-            return View(sliderList);
+            var pages = _pageBL.GetList();
+
+            return View(pages);
         }
 
         public IActionResult Create()
         {
             try
             {
-                var slider = new SliderDO();
-                return View(slider);
+                var page = new PageDO();
+                return View(page);
             }
             catch (Exception)
             {
@@ -39,39 +38,38 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Create(SliderDO slider)
+        public IActionResult Create(PageDO page)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var addSlider = _sliderBL.Add(slider);
+                    if (!string.IsNullOrEmpty(page.Slug))
+                    {
+                        var slug = Functions.FriendlyUrl(page.Slug);
+                        page.Slug = slug;
+                    }
+                    else
+                    {
+                        var slug = Functions.FriendlyUrl(page.Title);
+                        page.Slug = slug;
+                    }
+
+                    page.CreatedAt = DateTime.Now;
+                    page.UpdatedAt = DateTime.Now;
+                    var addPage = _pageBL.Add(page);
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     ViewBag.error = "Something went wrong please try it again!";
-                    return View(slider);
+                    return View(page);
                 }
             }
             catch (Exception)
             {
                 ViewBag.error = "Something went wrong please try it again!";
-                return View(slider);
-            }
-        }
-
-        public async Task<IActionResult> SingleUpload(IFormFile file)
-        {
-            if (file.Length > 0)
-            {
-                var uploadHelpers = new UploadHelper(_hosting);
-                var fileName = await uploadHelpers.Upload(file, "slider/");
-                return Ok("/upload/slider/" + fileName);
-            }
-            else
-            {
-                return Ok();
+                return View(page);
             }
         }
 
@@ -79,8 +77,8 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         {
             try
             {
-                var slider = _sliderBL.GetById(id);
-                return View(slider);
+                var result = _pageBL.GetById(id);
+                return View(result);
             }
             catch (Exception)
             {
@@ -89,25 +87,37 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Edit(int id, SliderDO slider)
+        public IActionResult Edit(int id, PageDO pageDO)
         {
             try
             {
-                if (slider != null)
+                if (pageDO != null)
                 {
-                    var updateSlider = _sliderBL.Update(slider);
+                    if (!string.IsNullOrEmpty(pageDO.Slug))
+                    {
+                        var slug = Functions.FriendlyUrl(pageDO.Slug);
+                        pageDO.Slug = slug;
+                    }
+                    else
+                    {
+                        var slug = Functions.FriendlyUrl(pageDO.Title);
+                        pageDO.Slug = slug;
+                    }
+
+                    pageDO.UpdatedAt = DateTime.Now;
+                    var updatePage = _pageBL.Update(pageDO);
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    ViewBag.Error = "Something went wrong please try it again!";
-                    return View(slider);
+                    ViewBag.error = "Something went wrong please try it again!";
+                    return View(pageDO);
                 }
             }
             catch (Exception)
             {
-                ViewBag.Error = "Something went wrong please try it again!";
-                return View(slider);
+                ViewBag.error = "Something went wrong please try it again!";
+                return View(pageDO);
             }
         }
 
@@ -115,8 +125,8 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         {
             try
             {
-                var slider = _sliderBL.GetById(id);
-                return View(slider);
+                var result = _pageBL.GetById(id);
+                return View(result);
             }
             catch (Exception)
             {
@@ -125,12 +135,12 @@ namespace ShopJoaoDias.Areas.Admin.Controllers
         }
 
         [HttpPost, AutoValidateAntiforgeryToken]
-        public IActionResult Delete(int id, SliderDO slider)
+        public IActionResult Delete(int id, PageDO page)
         {
-            var result = _sliderBL.GetById(id);
+            var result = _pageBL.GetById(id);
             try
             {
-                bool value = _sliderBL.Delete(result);
+                var value = _pageBL.Delete(result);
                 if (value)
                 {
                     return RedirectToAction("Index");

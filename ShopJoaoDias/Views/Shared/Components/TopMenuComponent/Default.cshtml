@@ -1,0 +1,31 @@
+﻿@model List<CategoryDO>
+
+<ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
+    @foreach (var category in Model.Where(x => x.Parentid == 0).ToList())
+    {
+        var categories = Model.Where(x => x.Parentid == category.Id).ToList();
+
+        if (categories != null)
+        {
+            <li class="has-dropdown">
+                <a href="/Category/@category.Slug">@category.Name<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+                <span class="js-menu-toggle"></span>
+                <ul style="width:200px">
+                    @foreach (var item in categories)
+                    {
+                        <li>
+                            <a href="/Category/@item.Slug">@item.Name</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="/Category/@category.Slug">@category.Name</a>
+            </li>
+        }
+    }
+
+</ul>

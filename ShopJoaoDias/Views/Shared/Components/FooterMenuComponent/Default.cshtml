@@ -1,0 +1,18 @@
+﻿@model List<PageDO>
+
+<div class="outer-footer__content u-s-m-b-40">
+    <div class="outer-footer__list-wrap">
+
+        <span class="outer-footer__content-title">Our Company</span>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+
+                    <a href="/Page/@item.Slug">@item.Title</a>
+                </li>
+
+            }
+        </ul>
+    </div>
+</div>

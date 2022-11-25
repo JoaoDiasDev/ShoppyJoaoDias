@@ -1,0 +1,40 @@
+﻿@model SliderDO
+
+@{
+    var uploadViewModel = new UploadViewModel
+            {
+                ActionResult = "./SingleUpload",
+                MaxFiles = 1
+            };
+}
+
+<div class="row">
+    @if (ViewBag.error != null)
+    {
+        <div class="alert">
+            <div class="alert-danger">
+                @ViewBag.error
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="card" id="app">
+            <div class="card-body">
+                <h4 class="card-title">Edit a Slider</h4>
+                <form class="form-horizontal p-t-20" method="post">
+                    <spinput asp-for="@Model.Title1"></spinput>
+                    <spinput asp-for="@Model.Title2"></spinput>
+                    <spinput asp-for="@Model.Description"></spinput>
+                    <spinput asp-for="@Model.Url"></spinput>
+                    <spupload></spupload>
+                    <spinput asp-for="@Model.Image" addclass="image" type="hidden"></spinput>
+                    <spbutton asp-value="Edit"></spbutton>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_singleUpload" model="uploadViewModel"></partial>
+}

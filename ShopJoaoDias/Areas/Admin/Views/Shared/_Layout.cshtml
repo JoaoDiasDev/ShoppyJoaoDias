@@ -331,7 +331,13 @@
                                 <li><a asp-controller="Slider" asp-action="Create">Create Slider</a></li>
                             </ul>
                         </li>
-                        <li>
+                          <li>
+                         <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Pages</span></a>
+                             <ul aria-expanded="false" class="collapse">
+                                <li><a asp-controller="Page" asp-action="Index">Page List</a></li>
+                                <li><a asp-controller="Page" asp-action="Create">Create Page</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Brands</span></a>
                             <ul aria-expanded="false" class="collapse">

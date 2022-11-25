@@ -51,9 +51,19 @@ namespace BL
             }
         }
 
-        public PageDO Get(Expression<Func<PageDO, bool>> predicate = null)
+        public PageDO Get(Expression<Func<Page, bool>> predicate = null)
         {
-            throw new NotImplementedException();
+            PageDO result;
+            try
+            {
+                Page admin = _pageService.Get(predicate);
+                result = _mapper.Map<Page, PageDO>(admin);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
         }
 
         public PageDO GetById(int id)

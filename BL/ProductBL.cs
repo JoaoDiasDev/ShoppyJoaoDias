@@ -98,17 +98,13 @@ namespace BL
             return result;
         }
 
-        public List<ProductDO> GetList(Expression<Func<ProductDO, bool>> filter = null)
+        public List<ProductDO> GetList(Expression<Func<Product, bool>> filter = null)
         {
             List<ProductDO> result;
             try
             {
-                List<Product> admins = _productService.GetList();
+                List<Product> admins = _productService.GetList(filter);
                 result = _mapper.Map<List<Product>, List<ProductDO>>(admins);
-                if (filter != null)
-                {
-                    result = result.AsQueryable().Where(filter).ToList();
-                }
             }
             catch (Exception)
             {
